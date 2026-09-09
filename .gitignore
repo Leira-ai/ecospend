@@ -30,8 +30,19 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# env files
 .env*
+!.env.example
+
+# test artifacts
+/playwright-report/
+/test-results/
+/blob-report/
+
+# uploads and local Supabase
+/uploads/
+/supabase/.branches/
+/supabase/.temp/
 
 # vercel
 .vercel

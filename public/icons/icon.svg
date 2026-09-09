@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Ikon EcoSpend">
+  <rect width="512" height="512" rx="112" fill="#065f46"/>
+  <path d="M377 111c-113 12-207 57-230 147-18 69 25 128 92 133 103 8 153-102 138-280Z" fill="#bef264"/>
+  <path d="M145 398c51-111 111-167 215-229" fill="none" stroke="#ecfdf5" stroke-width="30" stroke-linecap="round"/>
+  <path d="M218 276c14 12 36 22 62 26M268 222c2 13 10 29 23 42" fill="none" stroke="#065f46" stroke-width="18" stroke-linecap="round"/>
+</svg>

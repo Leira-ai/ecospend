@@ -1,0 +1,9 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowRight, CloudOff, Leaf, RefreshCw } from "lucide-react";
+
+export const metadata: Metadata = { title: "Sedang offline | EcoSpend", description: "EcoSpend tidak dapat terhubung ke jaringan." };
+
+export default function OfflinePage() {
+  return <main className="grid min-h-screen place-items-center bg-[#f7f9f4] px-5 py-12 text-slate-900"><section className="w-full max-w-lg text-center"><Link href="/" className="inline-flex items-center gap-2.5 font-bold text-emerald-950"><span className="grid size-10 place-items-center rounded-xl bg-emerald-800 text-white"><Leaf className="size-5" aria-hidden="true" /></span>EcoSpend</Link><div className="mx-auto mt-12 grid size-20 place-items-center rounded-3xl bg-emerald-100 text-emerald-800"><CloudOff className="size-9" aria-hidden="true" /></div><h1 className="mt-7 text-4xl font-bold tracking-[-0.04em] text-emerald-950">Anda sedang offline</h1><p className="mt-4 leading-7 text-slate-600">Periksa koneksi lalu coba lagi. Demi keamanan, data finansial, sesi, dan perubahan tidak disimpan oleh halaman offline ini.</p><div className="mt-8 grid gap-3 sm:grid-cols-2"><Link href="/" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-emerald-800 px-5 font-semibold text-white"><RefreshCw className="size-4" aria-hidden="true" />Coba lagi</Link><Link href="/methodology" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-emerald-900/15 bg-white px-5 font-semibold text-emerald-950">Baca metodologi<ArrowRight className="size-4" aria-hidden="true" /></Link></div><p className="mt-8 text-xs leading-5 text-slate-500">Pemasangan PWA hanya menyediakan shell dasar. EcoSpend bukan aplikasi offline-first dan tidak mengantre transaksi saat offline.</p></section></main>;
+}
