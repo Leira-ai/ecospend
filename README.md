@@ -2,7 +2,7 @@
 
 EcoSpend adalah aplikasi web pencatat keuangan pribadi yang menghubungkan transaksi, anggaran, target, laporan, dan perkiraan jejak karbon dalam satu dasbor. Repository saat ini menyediakan dua jalur yang jelas: mode demo lokal tanpa backend dan mode akun nyata berbasis Supabase.
 
-> **Status rilis:** aplikasi sudah terdeploy ke produksi, CI GitHub Actions hijau, dan seluruh quality gates lokal lulus. Autentikasi akun nyata memerlukan proyek Supabase produksi yang masih harus dikonfigurasi melalui akun Supabase Anda; mode demo live dapat langsung dicoba tanpa konfigurasi.
+> **Status rilis:** aplikasi **live** di produksi dengan CI GitHub Actions hijau dan seluruh quality gates lulus. Mode akun nyata berbasis Supabase sudah aktif: migration dan seed sudah diterapkan ke database production, registrasi email terverifikasi bekerja, dan isolasi RLS terbukti menolak akses anonim terhadap data finansial pengguna.
 
 ## Tautan dan tangkapan layar
 
@@ -134,12 +134,12 @@ EcoSpend terdeploy di Vercel (Hobby/free tier) dari repository GitHub ini:
 - Header keamanan produksi terverifikasi (CSP, HSTS, nosniff, X-Frame-Options, Referrer-Policy).
 - Smoke test produksi lulus: landing, dashboard demo, metodologi, manifest, robots, sitemap, dan login mengembalikan 200.
 
-Langkah menyalakan mode akun nyata masih memerlukan proyek Supabase produksi:
+Mode akun nyata sudah diaktifkan pada produksi melalui langkah berikut (dokumentasi untuk reproduksi):
 
-1. Buat proyek Supabase (free tier), lalu terapkan migrasi melalui alur rilis terkontrol; jangan memakai `db reset` pada produksi.
-2. Tetapkan `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, dan `NEXT_PUBLIC_APP_URL=https://ecospend-ten.vercel.app` pada environment variables Vercel, lalu redeploy.
-3. Konfigurasikan Auth redirect URL `https://ecospend-ten.vercel.app/auth/callback` di Supabase.
-4. Verifikasi RLS dua pengguna, Storage privat, transfer, recurring generation, ekspor, serta penghapusan akun pada produksi.
+1. Buat proyek Supabase (free tier), lalu terapkan migrasi melalui `supabase db push --include-all` dan seed lewat `supabase db query --linked -f supabase/seed.sql`; jangan memakai `db reset` pada produksi.
+2. Tetapkan `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, dan `NEXT_PUBLIC_APP_URL=https://ecospend-ten.vercel.app` pada environment variables Vercel (Production dan Preview), lalu redeploy.
+3. Konfigurasikan Site URL dan Redirect URL `https://ecospend-ten.vercel.app/auth/callback` di Supabase Authentication → URL Configuration.
+4. Terverifikasi pada produksi: registrasi email mengirim konfirmasi, role `anon` ditolak RLS pada tabel finansial, dan bucket attachment privat tersedia. Uji tambahan yang disarankan berkala: transfer, recurring generation, ekspor, serta penghapusan akun.
 
 ## Uang dan karbon
 
@@ -151,8 +151,9 @@ Langkah menyalakan mode akun nyata masih memerlukan proyek Supabase produksi:
 
 ## Batasan saat ini
 
-- Mode demo bersifat lokal, menggunakan data sintetis, dan tidak membuktikan Auth/RLS/Storage produksi.
-- Mode akun nyata belum aktif di produksi sampai proyek Supabase dibuat dan environment variables diisi.
+- Mode demo tetap tersedia secara lokal dan independen dari backend; data demo bersifat sintetis.
+- Konfirmasi email production menggunakan pengirim bawaan Supabase free tier (rate limit terbatas); untuk produksi serius, pasang SMTP kustom di Supabase Auth.
+- Rate limit pada beberapa endpoint adalah best-effort per server instance, bukan limit terdistribusi.
 - Shell PWA hanya menyimpan halaman offline dan aset publik minimum; tidak ada cache data privat, offline penuh, mutasi offline, background sync, atau resolusi konflik.
 - Faktor karbon demo bukan dataset produksi.
 - Paket gratis hosting/Supabase memiliki batas kuota, performa, egress, retensi, dan availability.
