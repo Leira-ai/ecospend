@@ -2,13 +2,22 @@
 
 EcoSpend adalah aplikasi web pencatat keuangan pribadi yang menghubungkan transaksi, anggaran, target, laporan, dan perkiraan jejak karbon dalam satu dasbor. Repository saat ini menyediakan dua jalur yang jelas: mode demo lokal tanpa backend dan mode akun nyata berbasis Supabase.
 
-> **Status rilis:** fitur utama, migrasi, dan suite pengujian tersedia, tetapi repository belum memiliki remote Git, URL publik, atau bukti deployment/CI jarak jauh. Gunakan data nyata hanya setelah konfigurasi serta deployment produksi diverifikasi.
+> **Status rilis:** aplikasi sudah terdeploy ke produksi, CI GitHub Actions hijau, dan seluruh quality gates lokal lulus. Autentikasi akun nyata memerlukan proyek Supabase produksi yang masih harus dikonfigurasi melalui akun Supabase Anda; mode demo live dapat langsung dicoba tanpa konfigurasi.
 
 ## Tautan dan tangkapan layar
 
-- **Repository GitHub:** menunggu repository/remote Git yang terverifikasi.
-- **Aplikasi live:** menunggu deployment yang terverifikasi.
-- **Tangkapan layar:** akan ditambahkan setelah deployment terverifikasi; belum ada berkas di `docs/screenshots/`.
+- **Repository GitHub:** <https://github.com/Leira-ai/ecospend>
+- **Aplikasi live:** <https://ecospend-ten.vercel.app>
+- **Mode demo langsung:** <https://ecospend-ten.vercel.app/dashboard?demo=1>
+- **CI:** [GitHub Actions](https://github.com/Leira-ai/ecospend/actions) — lulus pada commit terbaru.
+
+| Landing | Dashboard demo |
+| --- | --- |
+| ![Landing page EcoSpend](docs/screenshots/landing.png) | ![Dashboard demo EcoSpend](docs/screenshots/dashboard.png) |
+
+| Anggaran | Jejak karbon |
+| --- | --- |
+| ![Halaman anggaran](docs/screenshots/budgets.png) | ![Halaman jejak karbon](docs/screenshots/carbon.png) |
 
 ## Fitur yang tersedia
 
@@ -46,8 +55,8 @@ Nilai uang disimpan sebagai `BIGINT` satuan minor dan diserialisasi sebagai stri
 ### Mode demo
 
 ```bash
-git clone <URL_REPOSITORI>
-cd EcoSpend
+git clone https://github.com/Leira-ai/ecospend.git
+cd ecospend
 npm ci
 cp .env.example .env.local
 npm run dev
@@ -110,23 +119,27 @@ npm run test:e2e:install
 npm run test:e2e -- --project=chromium
 ```
 
-Knip bersifat blocking untuk file yang tidak digunakan serta dependency/devDependency yang tidak digunakan; configuration hint informasional bukan temuan blocking. Suite dan angka di atas adalah hasil lokal, bukan klaim bahwa GitHub Actions atau deployment sudah lulus.
+Knip bersifat blocking untuk file yang tidak digunakan serta dependency/devDependency yang tidak digunakan; configuration hint informasional bukan temuan blocking. Alur Playwright E2E yang sama juga dijalankan langsung terhadap URL produksi `ecospend-ten.vercel.app` dan lulus 10/10, termasuk tiga scan Axe.
 
 ## CI
 
-`.github/workflows/ci.yml` dikonfigurasi untuk push/pull request ke `main` dan `master`, memakai Node.js 24, action yang dipin ke commit, dan job terpisah untuk quality, Playwright/Axe, serta Gitleaks. Quality menjalankan instalasi bersih, lint, typecheck, 97 Vitest, build, audit, dan Knip. CI memberi konfigurasi Supabase kosong dan hanya membangun mode demo; workflow tidak menguji deployment Supabase nyata. Karena belum ada remote/run GitHub dalam repository lokal, dokumen ini tidak mengklaim CI pernah lulus.
+`.github/workflows/ci.yml` berjalan pada push/pull request ke `main` dan `master`, memakai Node.js 24, action yang dipin ke commit, serta job terpisah untuk quality, Playwright/Axe, dan Gitleaks 8.30.1 (checksum terverifikasi). CI memberi konfigurasi Supabase kosong dan membangun mode demo. Status terkini: **CI lulus (hijau)** pada commit `f75eaf6` di `main`, termasuk job quality, E2E/Axe, dan Gitleaks.
 
 ## Deployment
 
-Target harus mendukung Next.js App Router dan server Route Handlers.
+EcoSpend terdeploy di Vercel (Hobby/free tier) dari repository GitHub ini:
 
-1. Buat/hubungkan repository dan pilih Node.js 24+.
-2. Terapkan migrasi Supabase ke proyek tujuan melalui alur rilis terkontrol; jangan memakai `db reset` pada produksi.
-3. Tetapkan ketiga variabel lingkungan, termasuk `NEXT_PUBLIC_APP_URL` dengan origin HTTPS deployment.
-4. Jalankan seluruh quality gates dan verifikasi Auth redirect URL, RLS dua pengguna, Storage privat, transfer, recurring generation, ekspor, serta penghapusan akun.
-5. Verifikasi header keamanan, canonical/sitemap, dan smoke test pada URL produksi sebelum mengisi tautan live atau screenshot.
+- Production URL: <https://ecospend-ten.vercel.app>
+- Build: Next.js 16.3.4, Node.js 24, 32 route + Proxy middleware.
+- Header keamanan produksi terverifikasi (CSP, HSTS, nosniff, X-Frame-Options, Referrer-Policy).
+- Smoke test produksi lulus: landing, dashboard demo, metodologi, manifest, robots, sitemap, dan login mengembalikan 200.
 
-Paket otomatisasi performa yang memiliki dependency rentan telah dihapus. Verifikasi performa ditunda sampai ada URL produksi dan dilakukan dengan PageSpeed Insights atau rilis Lighthouse yang masih dipelihara.
+Langkah menyalakan mode akun nyata masih memerlukan proyek Supabase produksi:
+
+1. Buat proyek Supabase (free tier), lalu terapkan migrasi melalui alur rilis terkontrol; jangan memakai `db reset` pada produksi.
+2. Tetapkan `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, dan `NEXT_PUBLIC_APP_URL=https://ecospend-ten.vercel.app` pada environment variables Vercel, lalu redeploy.
+3. Konfigurasikan Auth redirect URL `https://ecospend-ten.vercel.app/auth/callback` di Supabase.
+4. Verifikasi RLS dua pengguna, Storage privat, transfer, recurring generation, ekspor, serta penghapusan akun pada produksi.
 
 ## Uang dan karbon
 
@@ -138,12 +151,12 @@ Paket otomatisasi performa yang memiliki dependency rentan telah dihapus. Verifi
 
 ## Batasan saat ini
 
-- Belum ada URL GitHub/live atau deployment produksi yang terverifikasi.
-- Mode demo bersifat lokal, menggunakan data sintetis, dan tidak membuktikan Auth/RLS/Storage.
+- Mode demo bersifat lokal, menggunakan data sintetis, dan tidak membuktikan Auth/RLS/Storage produksi.
+- Mode akun nyata belum aktif di produksi sampai proyek Supabase dibuat dan environment variables diisi.
 - Shell PWA hanya menyimpan halaman offline dan aset publik minimum; tidak ada cache data privat, offline penuh, mutasi offline, background sync, atau resolusi konflik.
 - Faktor karbon demo bukan dataset produksi.
 - Paket gratis hosting/Supabase memiliki batas kuota, performa, egress, retensi, dan availability.
-- Kinerja belum diukur pada produksi; gunakan PageSpeed/Lighthouse terpelihara setelah URL live tersedia.
+- Kinerja produksi belum diukur dengan PageSpeed/Lighthouse terpelihara; alat otomatis performa yang membawa dependency rentan sengaja tidak dipakai.
 
 ## Lisensi
 
