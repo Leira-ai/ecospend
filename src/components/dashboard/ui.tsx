@@ -3,11 +3,11 @@
 import { X } from "lucide-react";
 import { useEffect, useId } from "react";
 
-export const buttonPrimary = "inline-flex min-h-10 items-center justify-center gap-2 rounded-xl bg-emerald-700 px-4 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600 disabled:cursor-not-allowed disabled:opacity-50";
-export const buttonSecondary = "inline-flex min-h-10 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-700 transition hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-emerald-950";
-export const inputClass = "min-h-11 w-full rounded-xl border border-slate-300 bg-white px-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/20 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100";
-export const labelClass = "mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-200";
-export const cardClass = "rounded-2xl border border-slate-200/80 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900";
+export const buttonPrimary = "inline-flex min-h-10 items-center justify-center gap-2 rounded-xl bg-emerald-700 px-4 text-sm font-semibold text-white shadow-[0_8px_20px_-8px_rgb(4_120_87/0.7)] transition hover:-translate-y-px hover:bg-emerald-800 hover:shadow-[0_14px_26px_-10px_rgb(4_120_87/0.7)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transform-none motion-reduce:transition-none";
+export const buttonSecondary = "inline-flex min-h-10 items-center justify-center gap-2 rounded-xl border border-slate-200/90 bg-white/80 px-4 text-sm font-semibold text-slate-700 shadow-sm backdrop-blur transition hover:-translate-y-px hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700/80 dark:bg-slate-900/80 dark:text-slate-200 dark:hover:bg-emerald-950 motion-reduce:transform-none motion-reduce:transition-none";
+export const inputClass = "min-h-11 w-full rounded-xl border border-slate-300/90 bg-white px-3 text-sm text-slate-900 shadow-[inset_0_1px_2px_rgb(15_23_42/0.05)] outline-none transition placeholder:text-slate-400 hover:border-slate-400 focus:border-emerald-600 focus:ring-4 focus:ring-emerald-600/15 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:hover:border-slate-600";
+export const labelClass = "mb-1.5 block text-sm font-semibold text-slate-700 dark:text-slate-200";
+export const cardClass = "rounded-[1.4rem] border border-slate-200/70 bg-white shadow-[0_18px_40px_-28px_rgb(2_44_34/0.35)] dark:border-slate-800 dark:bg-slate-900";
 
 export function PageHeader({ eyebrow, title, description, actions }: { eyebrow?: string; title: string; description: string; actions?: React.ReactNode }) {
   return (
@@ -26,13 +26,48 @@ export function Card({ children, className = "", ...props }: React.HTMLAttribute
   return <section className={`${cardClass} ${className}`} {...props}>{children}</section>;
 }
 
+export function MetricCard({ label, value, detail, icon, tone, index = 0 }: { label: string; value: string; detail?: string; icon: React.ReactNode; tone: string; index?: number }) {
+  return (
+    <section aria-label={label} className="animate-pop group relative overflow-hidden rounded-[1.4rem] border border-slate-200/70 bg-white p-5 shadow-[0_18px_40px_-28px_rgb(2_44_34/0.35)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_50px_-30px_rgb(2_44_34/0.45)] dark:border-slate-800 dark:bg-slate-900 motion-reduce:transform-none motion-reduce:transition-none" style={{ animationDelay: `${index * 70}ms` }}>
+      <div className="pointer-events-none absolute -right-10 -top-10 size-32 rounded-full bg-emerald-500/10 blur-2xl transition group-hover:bg-emerald-500/20" aria-hidden="true" />
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <p className="text-sm font-medium text-slate-500 dark:text-slate-400">{label}</p>
+          <p className="mt-2 text-[1.7rem] font-extrabold leading-none tracking-tight text-slate-950 dark:text-white">{value}</p>
+          {detail && <p className="mt-2 text-xs leading-5 text-slate-500 dark:text-slate-400">{detail}</p>}
+        </div>
+        <span className={`grid size-11 shrink-0 place-items-center rounded-2xl shadow-inner ${tone}`}>{icon}</span>
+      </div>
+    </section>
+  );
+}
+
 export function Progress({ value, tone = "emerald", label }: { value: number; tone?: "emerald" | "amber" | "rose" | "blue"; label: string }) {
-  const colors = { emerald: "bg-emerald-600", amber: "bg-amber-500", rose: "bg-rose-600", blue: "bg-blue-600" };
+  const colors = { emerald: "from-emerald-500 to-emerald-700", amber: "from-amber-400 to-amber-600", rose: "from-rose-500 to-rose-700", blue: "from-sky-500 to-blue-700" };
   const safe = Math.max(0, Math.min(100, value));
   return (
-    <div className="h-2.5 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800" role="progressbar" aria-valuenow={Math.round(safe)} aria-valuemin={0} aria-valuemax={100} aria-label={label}>
-      <div className={`h-full rounded-full transition-all ${colors[tone]}`} style={{ width: `${safe}%` }} />
+    <div className="h-2.5 overflow-hidden rounded-full bg-slate-100 shadow-inner dark:bg-slate-800" role="progressbar" aria-valuenow={Math.round(safe)} aria-valuemin={0} aria-valuemax={100} aria-label={label}>
+      <div className={`h-full rounded-full bg-gradient-to-r transition-all duration-700 ${colors[tone]}`} style={{ width: `${safe}%` }} />
     </div>
+  );
+}
+
+export function SectionCard({ eyebrow, title, description, icon, children, action, className = "" }: { eyebrow?: string; title: string; description?: string; icon?: React.ReactNode; children: React.ReactNode; action?: React.ReactNode; className?: string }) {
+  return (
+    <section className={`${cardClass} overflow-hidden ${className}`}>
+      <div className="flex items-start justify-between gap-4 border-b border-slate-100/90 p-5 sm:p-6 dark:border-slate-800">
+        <div className="flex items-start gap-3">
+          {icon && <span className="grid size-10 shrink-0 place-items-center rounded-2xl bg-emerald-700/[0.08] text-emerald-700 dark:bg-emerald-400/10 dark:text-emerald-300">{icon}</span>}
+          <div>
+            {eyebrow && <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-emerald-700 dark:text-emerald-400">{eyebrow}</p>}
+            <h2 className="mt-0.5 text-lg font-extrabold tracking-tight text-slate-950 dark:text-white">{title}</h2>
+            {description && <p className="mt-1 text-xs leading-5 text-slate-500 dark:text-slate-400">{description}</p>}
+          </div>
+        </div>
+        {action}
+      </div>
+      <div className="p-5 sm:p-6">{children}</div>
+    </section>
   );
 }
 

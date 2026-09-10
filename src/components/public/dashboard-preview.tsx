@@ -6,7 +6,7 @@ export function DashboardPreview() {
   return (
     <div className="relative mx-auto w-full max-w-2xl lg:max-w-none" aria-label="Pratinjau dasbor EcoSpend dengan data contoh">
       <div className="absolute -inset-5 -z-10 rounded-[2.5rem] bg-gradient-to-br from-emerald-300/30 via-transparent to-lime-200/30 blur-2xl" aria-hidden="true" />
-      <div className="overflow-hidden rounded-[1.75rem] border border-emerald-950/10 bg-white p-3 shadow-2xl shadow-emerald-950/15 sm:p-4">
+      <div className="overflow-hidden rounded-[1.75rem] border border-emerald-950/10 bg-white p-3 shadow-[0_36px_70px_-36px_rgb(2_44_34/0.5)] ring-1 ring-white/60 sm:p-4">
         <div className="flex items-center justify-between px-2 pb-4 pt-1">
           <div className="flex items-center gap-2">
             <span className="grid size-7 place-items-center rounded-lg bg-emerald-700 text-white"><Leaf className="size-4" aria-hidden="true" /></span>
@@ -56,7 +56,7 @@ export function DashboardPreview() {
           </div>
         </div>
       </div>
-      <div className="absolute -bottom-5 -left-3 hidden items-center gap-3 rounded-2xl border border-emerald-900/10 bg-white p-3 shadow-xl sm:flex lg:-left-8">
+      <div className="animate-drift absolute -bottom-5 -left-3 hidden items-center gap-3 rounded-2xl border border-emerald-900/10 bg-white/95 p-3 shadow-xl backdrop-blur sm:flex lg:-left-8">
         <span className="grid size-9 place-items-center rounded-xl bg-lime-100 text-emerald-800"><Bike className="size-4" aria-hidden="true" /></span>
         <div><p className="text-[10px] text-slate-500">Pilihan rendah karbon</p><p className="text-xs font-bold text-emerald-950">3 perjalanan minggu ini</p></div>
       </div>

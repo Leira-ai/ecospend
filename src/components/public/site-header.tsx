@@ -16,21 +16,22 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-emerald-950/10 bg-[#f7f9f4]/95 backdrop-blur-lg supports-[backdrop-filter]:bg-[#f7f9f4]/80">
+    <header className="sticky top-0 z-50 border-b border-emerald-950/10 bg-[#f7f9f4]/90 shadow-[0_10px_30px_-22px_rgb(12_43_35/0.45)] backdrop-blur-xl supports-[backdrop-filter]:bg-[#f7f9f4]/75">
       <nav className="mx-auto flex min-h-16 max-w-7xl items-center justify-between gap-6 px-5 sm:px-8 lg:px-10" aria-label="Navigasi utama">
         <Brand />
-        <div className="hidden items-center gap-7 lg:flex">
+        <div className="hidden items-center gap-1.5 lg:flex">
           {navigation.map((item) => (
-            <Link key={item.href} className="text-sm font-medium text-slate-600 transition hover:text-emerald-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 motion-reduce:transition-none" href={item.href}>
+            <Link key={item.href} className="group relative rounded-full px-4 py-2 text-sm font-semibold text-slate-600 transition hover:bg-emerald-950/[0.04] hover:text-emerald-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 motion-reduce:transition-none" href={item.href}>
               {item.label}
+              <span className="absolute inset-x-4 -bottom-px h-0.5 origin-left scale-x-0 rounded-full bg-emerald-600 transition-transform duration-300 group-hover:scale-x-100 motion-reduce:transition-none" aria-hidden="true" />
             </Link>
           ))}
         </div>
         <div className="hidden items-center gap-2 sm:flex">
-          <Link href="/login" className="rounded-xl px-4 py-2.5 text-sm font-semibold text-emerald-950 hover:bg-emerald-950/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600">
+          <Link href="/login" className="rounded-xl px-4 py-2.5 text-sm font-semibold text-emerald-950 transition hover:bg-emerald-950/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600">
             Masuk
           </Link>
-          <Link href="/register" className="rounded-xl bg-emerald-800 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-2 motion-reduce:transition-none">
+          <Link href="/register" className="rounded-xl bg-emerald-800 px-4 py-2.5 text-sm font-semibold text-white shadow-[0_10px_24px_-12px_rgb(4_120_87/0.9)] transition hover:-translate-y-px hover:bg-emerald-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-2 motion-reduce:transform-none motion-reduce:transition-none">
             Mulai gratis
           </Link>
         </div>

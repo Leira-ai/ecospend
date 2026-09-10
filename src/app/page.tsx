@@ -20,7 +20,9 @@ import {
 } from "lucide-react";
 import { DashboardPreview } from "@/components/public/dashboard-preview";
 import { LandingCta } from "@/components/public/landing-cta";
+import { ProofMarquee } from "@/components/public/proof-marquee";
 import { PwaRegister } from "@/components/public/pwa-register";
+import { Reveal } from "@/components/public/reveal";
 import { SectionHeading } from "@/components/public/section-heading";
 import { SiteFooter } from "@/components/public/site-footer";
 import { SiteHeader } from "@/components/public/site-header";
@@ -48,51 +50,75 @@ export default function Home() {
       <PwaRegister />
       <SiteHeader />
       <main>
-        <section className="relative overflow-hidden px-5 pb-20 pt-16 sm:px-8 sm:pt-20 lg:px-10 lg:pb-28 lg:pt-24">
-          <div className="absolute left-[8%] top-20 -z-0 size-64 rounded-full bg-lime-200/30 blur-3xl" aria-hidden="true" />
-          <div className="relative mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+        <section className="texture-dots relative overflow-hidden px-5 pb-20 pt-16 sm:px-8 sm:pt-20 lg:px-10 lg:pb-28 lg:pt-24">
+          <div className="animate-drift absolute left-[6%] top-16 size-72 rounded-full bg-lime-200/40 blur-3xl" aria-hidden="true" />
+          <div className="animate-drift-late absolute -right-24 top-1/3 size-96 rounded-full bg-emerald-300/25 blur-3xl" aria-hidden="true" />
+          <div className="texture-grid pointer-events-none absolute inset-0 opacity-60 [mask-image:radial-gradient(70%_60%_at_50%_30%,black,transparent)]" aria-hidden="true" />
+          <div className="relative mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16">
+            <Reveal>
             <div className="max-w-2xl">
-              <div className="inline-flex items-center gap-2 rounded-full border border-emerald-800/15 bg-white px-3 py-1.5 text-xs font-semibold text-emerald-800 shadow-sm">
+              <div className="inline-flex items-center gap-2 rounded-full border border-emerald-800/15 bg-white/90 px-3 py-1.5 text-xs font-semibold text-emerald-800 shadow-sm backdrop-blur">
+                <span className="relative flex size-2" aria-hidden="true"><span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-500 opacity-60 motion-reduce:animate-none" /><span className="relative inline-flex size-2 rounded-full bg-emerald-600" /></span>
                 <Sparkles className="size-3.5" aria-hidden="true" />
                 Keuangan sehat, bumi lebih terjaga
               </div>
-              <h1 className="mt-6 text-balance text-5xl font-bold leading-[1.04] tracking-[-0.055em] text-emerald-950 sm:text-6xl lg:text-7xl">
-                Pahami uangmu. <span className="text-emerald-700">Kenali dampaknya.</span>
+              <h1 className="font-display mt-6 text-balance text-5xl font-bold leading-[1.02] text-emerald-950 sm:text-6xl lg:text-7xl">
+                Pahami uangmu. <span className="bg-gradient-to-r from-emerald-700 via-emerald-500 to-lime-500 bg-clip-text text-transparent">Kenali dampaknya.</span>
               </h1>
               <p className="mt-6 max-w-xl text-pretty text-lg leading-8 text-slate-600">
                 EcoSpend membantu Anda mencatat keuangan, menjaga anggaran, dan melihat perkiraan jejak karbon dari pengeluaran—dalam satu tempat yang tenang dan mudah dipahami.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Link href="/register" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-emerald-800 px-5 py-3 font-semibold text-white shadow-lg shadow-emerald-900/10 transition hover:bg-emerald-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-2 motion-reduce:transition-none">
-                  Mulai kelola sekarang <ArrowRight className="size-4" aria-hidden="true" />
+                <Link href="/register" className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-emerald-800 px-5 py-3 font-semibold text-white shadow-[0_18px_36px_-16px_rgb(4_120_87/0.8)] transition hover:-translate-y-0.5 hover:bg-emerald-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-2 motion-reduce:transform-none motion-reduce:transition-none">
+                  Mulai kelola sekarang <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5 motion-reduce:transition-none" aria-hidden="true" />
                 </Link>
-                <Link href="#cara-kerja" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-emerald-900/15 bg-white px-5 py-3 font-semibold text-emerald-950 transition hover:bg-emerald-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 motion-reduce:transition-none">
+                <Link href="#cara-kerja" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-emerald-900/15 bg-white/90 px-5 py-3 font-semibold text-emerald-950 backdrop-blur transition hover:-translate-y-0.5 hover:bg-emerald-50 hover:shadow-lg hover:shadow-emerald-950/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 motion-reduce:transform-none motion-reduce:transition-none">
                   Lihat cara kerja
                 </Link>
               </div>
-              <div className="mt-7 flex flex-wrap gap-x-5 gap-y-2 text-xs text-slate-600">
+              <div className="mt-8 grid max-w-lg grid-cols-3 gap-3">
+                {[
+                  { value: "150+", label: "Transaksi demo" },
+                  { value: "132", label: "Tes database" },
+                  { value: "97", label: "Tes aplikasi" },
+                ].map((stat) => (
+                  <div key={stat.label} className="rounded-2xl border border-emerald-950/10 bg-white/70 px-4 py-3 backdrop-blur">
+                    <p className="text-xl font-extrabold tracking-tight text-emerald-950">{stat.value}</p>
+                    <p className="mt-0.5 text-[11px] font-medium text-slate-600">{stat.label}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-xs text-slate-600">
                 {['Gratis untuk memulai', 'Tanpa iklan', 'Privasi sebagai dasar'].map((item) => (
                   <span key={item} className="inline-flex items-center gap-1.5"><Check className="size-3.5 text-emerald-700" aria-hidden="true" />{item}</span>
                 ))}
               </div>
             </div>
-            <DashboardPreview />
+            </Reveal>
+            <Reveal delay={140}>
+              <DashboardPreview />
+            </Reveal>
           </div>
         </section>
+        <ProofMarquee />
 
-        <section id="manfaat" className="scroll-mt-24 border-y border-emerald-950/10 bg-white px-5 py-20 sm:px-8 lg:px-10 lg:py-28">
-          <div className="mx-auto max-w-7xl">
+        <section id="manfaat" className="relative scroll-mt-24 border-y border-emerald-950/10 bg-white px-5 py-20 sm:px-8 lg:px-10 lg:py-28">
+          <div className="texture-dots pointer-events-none absolute inset-0 opacity-50 [mask-image:radial-gradient(60%_50%_at_50%_0%,black,transparent)]" aria-hidden="true" />
+          <div className="relative mx-auto max-w-7xl">
             <SectionHeading eyebrow="Satu kebiasaan, tiga manfaat" title="Bukan sekadar mencatat pengeluaran." description="EcoSpend mengubah catatan harian menjadi konteks yang membantu Anda mengambil keputusan dengan lebih percaya diri." align="center" />
             <div className="mt-12 grid gap-5 md:grid-cols-3">
               {benefits.map((benefit, index) => (
-                <article key={benefit.title} className="group rounded-2xl border border-emerald-950/10 bg-[#fbfcf9] p-6 transition hover:-translate-y-1 hover:border-emerald-700/25 hover:shadow-xl hover:shadow-emerald-950/5 motion-reduce:transform-none motion-reduce:transition-none">
-                  <div className="flex items-start justify-between gap-4">
-                    <span className="grid size-11 place-items-center rounded-xl bg-emerald-100 text-emerald-800"><benefit.icon className="size-5" aria-hidden="true" /></span>
+                <Reveal key={benefit.title} delay={index * 110}>
+                <article className="group relative h-full overflow-hidden rounded-[1.6rem] border border-emerald-950/10 bg-[#fbfcf9] p-6 transition duration-300 hover:-translate-y-1.5 hover:border-emerald-700/25 hover:shadow-[0_28px_50px_-28px_rgb(2_44_34/0.35)] motion-reduce:transform-none motion-reduce:transition-none">
+                  <div className="pointer-events-none absolute -right-12 -top-12 size-36 rounded-full bg-emerald-200/40 blur-2xl transition group-hover:bg-lime-200/60" aria-hidden="true" />
+                  <div className="relative flex items-start justify-between gap-4">
+                    <span className="grid size-12 place-items-center rounded-2xl bg-gradient-to-br from-emerald-700 to-emerald-500 text-white shadow-lg shadow-emerald-900/20 transition group-hover:scale-105 motion-reduce:transition-none"><benefit.icon className="size-5" aria-hidden="true" /></span>
                     <span className="font-mono text-xs text-emerald-950/65">0{index + 1}</span>
                   </div>
-                  <h3 className="mt-6 text-xl font-bold tracking-tight text-emerald-950">{benefit.title}</h3>
-                  <p className="mt-3 text-sm leading-6 text-slate-600">{benefit.text}</p>
+                  <h3 className="relative mt-6 text-xl font-bold tracking-tight text-emerald-950">{benefit.title}</h3>
+                  <p className="relative mt-3 text-sm leading-6 text-slate-600">{benefit.text}</p>
                 </article>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -124,8 +150,10 @@ export default function Home() {
             />
           </div>
         </section>
-        <section id="cara-kerja" className="scroll-mt-24 bg-emerald-950 px-5 py-20 text-white sm:px-8 lg:px-10 lg:py-28">
-          <div className="mx-auto max-w-7xl">
+        <section id="cara-kerja" className="relative scroll-mt-24 overflow-hidden bg-emerald-950 px-5 py-20 text-white sm:px-8 lg:px-10 lg:py-28">
+          <div className="animate-drift pointer-events-none absolute -left-24 top-10 size-72 rounded-full bg-emerald-500/20 blur-3xl" aria-hidden="true" />
+          <div className="pointer-events-none absolute inset-0 opacity-[0.12] [background-image:radial-gradient(white_1px,transparent_1px)] [background-size:26px_26px]" aria-hidden="true" />
+          <div className="relative mx-auto max-w-7xl">
             <div className="grid gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:gap-20">
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.18em] text-lime-300">Cara kerja</p>
@@ -134,8 +162,8 @@ export default function Home() {
               </div>
               <ol className="space-y-2">
                 {steps.map((step) => (
-                  <li key={step.number} className="grid grid-cols-[auto_1fr] gap-5 border-b border-white/10 py-6 first:pt-0 last:border-0">
-                    <span className="font-mono text-sm text-lime-300">{step.number}</span>
+                  <li key={step.number} className="group grid grid-cols-[auto_1fr] gap-5 rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-6 backdrop-blur transition hover:border-lime-300/30 hover:bg-white/[0.06] motion-reduce:transition-none">
+                    <span className="grid size-10 place-items-center rounded-xl bg-lime-300/15 font-mono text-sm font-bold text-lime-300">{step.number}</span>
                     <div><h3 className="text-xl font-semibold">{step.title}</h3><p className="mt-2 text-sm leading-6 text-emerald-100/65">{step.text}</p></div>
                   </li>
                 ))}
@@ -144,7 +172,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="bg-white px-5 py-20 sm:px-8 lg:px-10 lg:py-28" aria-labelledby="transparency-title">
+        <section id="transparansi" className="scroll-mt-24 bg-white px-5 py-20 sm:px-8 lg:px-10 lg:py-28" aria-labelledby="transparency-title">
           <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2 lg:gap-20">
             <div className="relative min-h-[430px] overflow-hidden rounded-[2rem] bg-[#edf4e8] p-6 sm:p-10">
               <div className="absolute -right-14 -top-14 size-44 rounded-full border-[28px] border-lime-300/30" aria-hidden="true" />
@@ -174,7 +202,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="border-y border-emerald-950/10 bg-[#f4f7f1] px-5 py-20 sm:px-8 lg:px-10 lg:py-28" aria-labelledby="security-title">
+        <section id="keamanan" className="scroll-mt-24 border-y border-emerald-950/10 bg-[#f4f7f1] px-5 py-20 sm:px-8 lg:px-10 lg:py-28" aria-labelledby="security-title">
           <div className="mx-auto max-w-7xl">
             <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
               <div>
@@ -210,15 +238,17 @@ type FeatureBlockProps = {
 function FeatureBlock({ eyebrow, title, description, bullets, visual, reverse }: FeatureBlockProps) {
   return (
     <article className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-      <div className={reverse ? "lg:order-2" : ""}>
-        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-emerald-700">{eyebrow}</p>
-        <h2 className="mt-4 text-balance text-3xl font-bold tracking-[-0.04em] text-emerald-950 sm:text-5xl">{title}</h2>
+      <Reveal className={reverse ? "lg:order-2" : ""}>
+      <div>
+        <p className="inline-flex items-center gap-2 rounded-full border border-emerald-700/15 bg-emerald-50 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-emerald-700">{eyebrow}</p>
+        <h2 className="font-display mt-4 text-balance text-3xl font-bold text-emerald-950 sm:text-5xl">{title}</h2>
         <p className="mt-5 text-lg leading-8 text-slate-600">{description}</p>
         <ul className="mt-7 space-y-3">
-          {bullets.map((item) => <li key={item} className="flex items-start gap-3 text-sm leading-6 text-slate-700"><span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-emerald-100 text-emerald-800"><Check className="size-3" aria-hidden="true" /></span>{item}</li>)}
+          {bullets.map((item) => <li key={item} className="flex items-start gap-3 text-sm leading-6 text-slate-700"><span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-emerald-700 text-white shadow-sm"><Check className="size-3" aria-hidden="true" /></span>{item}</li>)}
         </ul>
       </div>
-      <div className={reverse ? "lg:order-1" : ""}>{visual}</div>
+      </Reveal>
+      <Reveal delay={120} className={reverse ? "lg:order-1" : ""}>{visual}</Reveal>
     </article>
   );
 }
@@ -247,4 +277,4 @@ function CarbonVisual() {
 function MiniStat({ icon: Icon, label, value, green }: { icon: typeof ArrowRight; label: string; value: string; green?: boolean }) { return <div className="rounded-xl bg-slate-50 p-3"><span className={`grid size-7 place-items-center rounded-lg ${green ? 'bg-emerald-100 text-emerald-700' : 'bg-orange-100 text-orange-700'}`}><Icon className={`size-3.5 ${green ? '-rotate-45' : 'rotate-45'}`} aria-hidden="true" /></span><p className="mt-3 text-[10px] text-slate-500">{label}</p><p className="text-sm font-bold text-slate-900">{value}</p></div>; }
 function Legend({ color, label, value }: { color: string; label: string; value: string }) { return <div className="grid grid-cols-[auto_1fr_auto] items-center gap-2 text-xs"><span className={`size-2 rounded-full ${color}`} /><span className="text-emerald-100/70">{label}</span><span className="font-semibold">{value}</span></div>; }
 function DetailRow({ label, value }: { label: string; value: string }) { return <div className="flex items-center justify-between gap-4"><dt className="text-slate-500">{label}</dt><dd className="text-right font-medium text-slate-800">{value}</dd></div>; }
-function SecurityCard({ icon: Icon, title, text }: { icon: typeof ShieldCheck; title: string; text: string }) { return <article className="rounded-2xl border border-emerald-950/10 bg-white p-5"><span className="grid size-10 place-items-center rounded-xl bg-emerald-100 text-emerald-800"><Icon className="size-5" aria-hidden="true" /></span><h3 className="mt-5 font-bold text-emerald-950">{title}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{text}</p></article>; }
+function SecurityCard({ icon: Icon, title, text }: { icon: typeof ShieldCheck; title: string; text: string }) { return <article className="group rounded-[1.4rem] border border-emerald-950/10 bg-white p-5 shadow-[0_16px_32px_-26px_rgb(2_44_34/0.5)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_26px_44px_-26px_rgb(2_44_34/0.45)] motion-reduce:transform-none motion-reduce:transition-none"><span className="grid size-10 place-items-center rounded-2xl bg-gradient-to-br from-emerald-700 to-emerald-500 text-white shadow-md shadow-emerald-900/20 transition group-hover:scale-105 motion-reduce:transition-none"><Icon className="size-5" aria-hidden="true" /></span><h3 className="mt-5 font-bold text-emerald-950">{title}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{text}</p></article>; }
