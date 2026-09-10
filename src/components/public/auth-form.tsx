@@ -146,7 +146,7 @@ export function AuthForm({ mode }: AuthFormProps) {
               {showPassword ? <EyeOff className="size-5" aria-hidden="true" /> : <Eye className="size-5" aria-hidden="true" />}
             </button>
           </div>
-          {mode !== "login" && <p className="mt-2 text-xs leading-5 text-slate-500">Gunakan minimal 8 karakter dan hindari kata sandi yang dipakai di layanan lain.</p>}
+          {mode !== "login" && <p className="mt-2 text-xs leading-5 text-slate-600">Gunakan minimal 8 karakter dan hindari kata sandi yang dipakai di layanan lain.</p>}
         </div>
       )}
       {mode === "register" && (

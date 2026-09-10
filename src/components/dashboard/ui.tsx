@@ -5,7 +5,7 @@ import { useEffect, useId } from "react";
 
 export const buttonPrimary = "inline-flex min-h-10 items-center justify-center gap-2 rounded-xl bg-emerald-700 px-4 text-sm font-semibold text-white shadow-[0_8px_20px_-8px_rgb(4_120_87/0.7)] transition hover:-translate-y-px hover:bg-emerald-800 hover:shadow-[0_14px_26px_-10px_rgb(4_120_87/0.7)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transform-none motion-reduce:transition-none";
 export const buttonSecondary = "inline-flex min-h-10 items-center justify-center gap-2 rounded-xl border border-slate-200/90 bg-white/80 px-4 text-sm font-semibold text-slate-700 shadow-sm backdrop-blur transition hover:-translate-y-px hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700/80 dark:bg-slate-900/80 dark:text-slate-200 dark:hover:bg-emerald-950 motion-reduce:transform-none motion-reduce:transition-none";
-export const inputClass = "min-h-11 w-full rounded-xl border border-slate-300/90 bg-white px-3 text-sm text-slate-900 shadow-[inset_0_1px_2px_rgb(15_23_42/0.05)] outline-none transition placeholder:text-slate-400 hover:border-slate-400 focus:border-emerald-600 focus:ring-4 focus:ring-emerald-600/15 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:hover:border-slate-600";
+export const inputClass = "min-h-11 w-full rounded-xl border border-slate-300/90 bg-white px-3 text-sm text-slate-900 shadow-[inset_0_1px_2px_rgb(15_23_42/0.05)] outline-none transition placeholder:text-slate-500 hover:border-slate-400 focus:border-emerald-600 focus:ring-4 focus:ring-emerald-600/15 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:hover:border-slate-600";
 export const labelClass = "mb-1.5 block text-sm font-semibold text-slate-700 dark:text-slate-200";
 export const cardClass = "rounded-[1.4rem] border border-slate-200/70 bg-white shadow-[0_18px_40px_-28px_rgb(2_44_34/0.35)] dark:border-slate-800 dark:bg-slate-900";
 
@@ -32,9 +32,9 @@ export function MetricCard({ label, value, detail, icon, tone, index = 0 }: { la
       <div className="pointer-events-none absolute -right-10 -top-10 size-32 rounded-full bg-emerald-500/10 blur-2xl transition group-hover:bg-emerald-500/20" aria-hidden="true" />
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="text-sm font-medium text-slate-500 dark:text-slate-400">{label}</p>
+          <p className="text-sm font-medium text-slate-600 dark:text-slate-300">{label}</p>
           <p className="mt-2 text-[1.7rem] font-extrabold leading-none tracking-tight text-slate-950 dark:text-white">{value}</p>
-          {detail && <p className="mt-2 text-xs leading-5 text-slate-500 dark:text-slate-400">{detail}</p>}
+          {detail && <p className="mt-2 text-xs leading-5 text-slate-600 dark:text-slate-300">{detail}</p>}
         </div>
         <span className={`grid size-11 shrink-0 place-items-center rounded-2xl shadow-inner ${tone}`}>{icon}</span>
       </div>
@@ -61,7 +61,7 @@ export function SectionCard({ eyebrow, title, description, icon, children, actio
           <div>
             {eyebrow && <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-emerald-700 dark:text-emerald-400">{eyebrow}</p>}
             <h2 className="mt-0.5 text-lg font-extrabold tracking-tight text-slate-950 dark:text-white">{title}</h2>
-            {description && <p className="mt-1 text-xs leading-5 text-slate-500 dark:text-slate-400">{description}</p>}
+            {description && <p className="mt-1 text-xs leading-5 text-slate-600 dark:text-slate-300">{description}</p>}
           </div>
         </div>
         {action}
@@ -75,7 +75,7 @@ export function EmptyState({ title, description, action }: { title: string; desc
   return (
     <div className="flex min-h-48 flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 p-6 text-center dark:border-slate-700">
       <p className="font-semibold text-slate-900 dark:text-white">{title}</p>
-      <p className="mt-1 max-w-sm text-sm text-slate-500 dark:text-slate-400">{description}</p>
+      <p className="mt-1 max-w-sm text-sm text-slate-600 dark:text-slate-300">{description}</p>
       {action && <div className="mt-4">{action}</div>}
     </div>
   );
@@ -99,8 +99,8 @@ export function Modal({ open, title, description, onClose, children, size = "md"
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-slate-950/55 p-0 backdrop-blur-sm sm:items-center sm:p-4" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
       <div role="dialog" aria-modal="true" aria-labelledby={titleId} className={`max-h-[92vh] w-full overflow-y-auto rounded-t-3xl bg-white p-5 shadow-2xl sm:rounded-2xl sm:p-6 dark:bg-slate-900 ${widths[size]}`}>
         <div className="mb-5 flex items-start justify-between gap-4">
-          <div><h2 id={titleId} className="text-xl font-bold text-slate-950 dark:text-white">{title}</h2>{description && <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{description}</p>}</div>
-          <button type="button" onClick={onClose} aria-label="Tutup dialog" className="grid min-h-10 min-w-10 place-items-center rounded-xl text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800"><X className="size-5" /></button>
+          <div><h2 id={titleId} className="text-xl font-bold text-slate-950 dark:text-white">{title}</h2>{description && <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">{description}</p>}</div>
+          <button type="button" onClick={onClose} aria-label="Tutup dialog" className="grid min-h-10 min-w-10 place-items-center rounded-xl text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800"><X className="size-5" /></button>
         </div>
         {children}
       </div>
@@ -115,7 +115,7 @@ export function ConfirmDialog({ open, title, description, confirmLabel = "Konfir
 export function Toggle({ checked, onChange, label, description }: { checked: boolean; onChange: (next: boolean) => void; label: string; description?: string }) {
   return (
     <label className="flex cursor-pointer items-center justify-between gap-4 py-2">
-      <span><span className="block text-sm font-medium text-slate-900 dark:text-white">{label}</span>{description && <span className="mt-0.5 block text-xs text-slate-500 dark:text-slate-400">{description}</span>}</span>
+      <span><span className="block text-sm font-medium text-slate-900 dark:text-white">{label}</span>{description && <span className="mt-0.5 block text-xs text-slate-600 dark:text-slate-300">{description}</span>}</span>
       <input type="checkbox" className="peer sr-only" checked={checked} onChange={(event) => onChange(event.target.checked)} />
       <span aria-hidden="true" className="relative h-6 w-11 shrink-0 rounded-full bg-slate-300 transition peer-checked:bg-emerald-600 peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-emerald-600 after:absolute after:left-1 after:top-1 after:size-4 after:rounded-full after:bg-white after:transition peer-checked:after:translate-x-5 dark:bg-slate-700" />
     </label>

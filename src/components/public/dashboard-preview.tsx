@@ -26,7 +26,7 @@ export function DashboardPreview() {
           <div className="mt-3 grid gap-3 sm:grid-cols-[1.25fr_0.75fr]">
             <div className="rounded-xl border border-emerald-950/5 bg-white p-4">
               <div className="flex items-center justify-between">
-                <div><p className="text-[10px] font-medium text-slate-500">Tren pengeluaran</p><p className="mt-1 text-xs font-semibold text-slate-900">7 hari terakhir</p></div>
+                <div><p className="text-[10px] font-medium text-slate-600">Tren pengeluaran</p><p className="mt-1 text-xs font-semibold text-slate-900">7 hari terakhir</p></div>
                 <span className="text-[10px] font-semibold text-emerald-700">Lebih hemat</span>
               </div>
               <div className="mt-6 flex h-24 items-end gap-2" aria-hidden="true">
@@ -58,7 +58,7 @@ export function DashboardPreview() {
       </div>
       <div className="animate-drift absolute -bottom-5 -left-3 hidden items-center gap-3 rounded-2xl border border-emerald-900/10 bg-white/95 p-3 shadow-xl backdrop-blur sm:flex lg:-left-8">
         <span className="grid size-9 place-items-center rounded-xl bg-lime-100 text-emerald-800"><Bike className="size-4" aria-hidden="true" /></span>
-        <div><p className="text-[10px] text-slate-500">Pilihan rendah karbon</p><p className="text-xs font-bold text-emerald-950">3 perjalanan minggu ini</p></div>
+        <div><p className="text-[10px] text-slate-600">Pilihan rendah karbon</p><p className="text-xs font-bold text-emerald-950">3 perjalanan minggu ini</p></div>
       </div>
     </div>
   );
@@ -67,7 +67,7 @@ export function DashboardPreview() {
 type MetricProps = { label: string; value: string; trend: string; positive?: boolean };
 function Metric({ label, value, trend, positive }: MetricProps) {
   const TrendIcon = positive ? ArrowDownRight : ArrowUpRight;
-  return <div className="rounded-xl border border-emerald-950/5 bg-white p-3"><p className="text-[9px] text-slate-500 sm:text-[10px]">{label}</p><div className="mt-2 flex items-end justify-between gap-2"><p className="text-base font-bold tracking-tight text-slate-900 sm:text-lg">{value}</p><span className="inline-flex items-center text-[9px] font-semibold text-emerald-700"><TrendIcon className="size-3" aria-hidden="true" />{trend}</span></div></div>;
+  return <div className="rounded-xl border border-emerald-950/5 bg-white p-3"><p className="text-[9px] text-slate-600 sm:text-[10px]">{label}</p><div className="mt-2 flex items-end justify-between gap-2"><p className="text-base font-bold tracking-tight text-slate-900 sm:text-lg">{value}</p><span className="inline-flex items-center text-[9px] font-semibold text-emerald-700"><TrendIcon className="size-3" aria-hidden="true" />{trend}</span></div></div>;
 }
 
 type IconType = typeof Utensils;
