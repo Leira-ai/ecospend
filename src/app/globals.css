@@ -1,26 +1,44 @@
 @import "tailwindcss";
 
+/*
+ * EcoSpend "Jurnal Keuangan Hidup" — design tokens.
+ * Warm Indonesian paper + forest greens. Dark mode mirrors the same hues.
+ */
 :root {
-  --background: #f6f8f5;
-  --foreground: #101c17;
-  --eco-deep: #0c2b23;
-  --eco: #0e6e52;
-  --eco-bright: #10a37f;
-  --lime: #c8f169;
-  --sand: #efe9dc;
+  --background: #f6f4ec;
+  --foreground: #14201b;
+  --paper: #fbf9f3;
+  --paper-deep: #efe9da;
+  --ink: #14201b;
+  --ink-soft: #43544b;
+  --forest: #0e3b2c;
+  --forest-deep: #082419;
+  --moss: #1e6f4e;
+  --moss-bright: #2fa36b;
+  --rain: #2f6f8f;
+  --turmeric: #d99a2b;
+  --paper-line: rgb(20 32 27 / 0.1);
+  --card-shadow: 0 24px 48px -32px rgb(8 36 25 / 0.4);
+  --radius-card: 1.35rem;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+  --font-sans: var(--font-sans);
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #08120e;
+    --background: #08130e;
     --foreground: #e9f2ec;
+    --paper: #0c1a13;
+    --paper-deep: #0f2318;
+    --ink: #eaf3ed;
+    --ink-soft: #b8c7bd;
+    --paper-line: rgb(234 243 237 / 0.12);
+    --card-shadow: 0 24px 48px -30px rgb(0 0 0 / 0.7);
   }
 }
 
@@ -32,22 +50,51 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Brand display type */
+/* Brand display type — editorial, tight, confident */
 .font-display {
-  font-family: var(--font-sans);
+  font-family: var(--font-display), var(--font-sans);
+  font-weight: 800;
   letter-spacing: -0.045em;
 }
 
-/* Soft paper texture for public hero */
+.font-ledger {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Brand surfaces */
+.eco-paper {
+  background: var(--paper);
+  border: 1px solid var(--paper-line);
+  box-shadow: var(--card-shadow);
+}
+
+.eco-ledger-row {
+  border-bottom: 1px dashed rgb(20 32 27 / 0.16);
+}
+@media (prefers-color-scheme: dark) {
+  .eco-ledger-row {
+    border-bottom-color: rgb(234 243 237 / 0.14);
+  }
+}
+
+/* Signature flow motif */
+.texture-flow {
+  background-image:
+    radial-gradient(ellipse 60% 45% at 20% 20%, rgb(47 163 107 / 0.12), transparent 70%),
+    radial-gradient(ellipse 50% 40% at 85% 70%, rgb(217 154 43 / 0.1), transparent 70%),
+    repeating-linear-gradient(115deg, transparent 0 26px, rgb(20 32 27 / 0.035) 26px 27px);
+}
+
 .texture-dots {
-  background-image: radial-gradient(rgb(12 43 35 / 0.08) 1px, transparent 1px);
+  background-image: radial-gradient(rgb(14 59 44 / 0.1) 1px, transparent 1px);
   background-size: 22px 22px;
 }
 
 .texture-grid {
   background-image:
-    linear-gradient(rgb(12 43 35 / 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(12 43 35 / 0.06) 1px, transparent 1px);
+    linear-gradient(rgb(14 59 44 / 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(14 59 44 / 0.06) 1px, transparent 1px);
   background-size: 44px 44px;
 }
 
@@ -62,7 +109,7 @@ body {
   translate: 0 0;
 }
 
-/* Floating hero accents */
+/* Floating accents */
 @keyframes drift-slow {
   0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
   50% { transform: translate3d(0, -14px, 0) rotate(2deg); }

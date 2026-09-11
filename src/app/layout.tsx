@@ -1,7 +1,22 @@
 import type { Metadata, Viewport } from "next";
+import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
 import { PwaRegister } from "@/components/public/pwa-register";
 import { Providers } from "@/components/providers";
 import "./globals.css";
+
+const display = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-display",
+  display: "swap",
+  weight: ["600", "700", "800"],
+});
+
+const sans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+  weight: ["400", "500", "600", "700", "800"],
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"),
@@ -33,8 +48,8 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f4f8f5" },
-    { media: "(prefers-color-scheme: dark)", color: "#071512" },
+    { media: "(prefers-color-scheme: light)", color: "#f6f4ec" },
+    { media: "(prefers-color-scheme: dark)", color: "#08130e" },
   ],
 };
 
@@ -43,7 +58,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="id"
       suppressHydrationWarning
-      className="h-full antialiased"
+      className={`h-full antialiased ${display.variable} ${sans.variable}`}
     >
       <body className="min-h-full flex flex-col">
         <Providers>

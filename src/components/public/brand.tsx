@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Leaf } from "lucide-react";
+import { LeafCoin } from "@/components/brand/leaf-coin";
 
 type BrandProps = {
   compact?: boolean;
@@ -9,14 +9,12 @@ export function Brand({ compact = false }: BrandProps) {
   return (
     <Link
       href="/"
-      className="inline-flex items-center gap-2.5 rounded-lg text-emerald-950 outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-4"
+      className="group inline-flex items-center gap-2.5 rounded-lg text-[var(--forest)] outline-none focus-visible:ring-2 focus-visible:ring-[var(--moss)] focus-visible:ring-offset-4 dark:text-[#eef5ef]"
       aria-label="EcoSpend, kembali ke beranda"
     >
-      <span className="grid size-9 place-items-center rounded-xl bg-emerald-700 text-white shadow-sm">
-        <Leaf className="size-5" aria-hidden="true" />
-      </span>
+      <LeafCoin className="size-10 transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-105 motion-reduce:transition-none" />
       {!compact && (
-        <span className="text-lg font-bold tracking-[-0.03em]">EcoSpend</span>
+        <span className="font-display text-lg font-extrabold">EcoSpend</span>
       )}
     </Link>
   );

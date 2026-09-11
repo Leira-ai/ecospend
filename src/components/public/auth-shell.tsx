@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { ArrowLeft, CheckCircle2, Leaf } from "lucide-react";
+import { ArrowLeft, CheckCircle2 } from "lucide-react";
+import { LeafCoin } from "@/components/brand/leaf-coin";
 import { Brand } from "./brand";
 
 type AuthShellProps = {
@@ -11,11 +12,11 @@ type AuthShellProps = {
 
 export function AuthShell({ eyebrow, title, description, children }: AuthShellProps) {
   return (
-    <main className="grid min-h-screen bg-[#f7f9f4] lg:grid-cols-[0.85fr_1.15fr]">
-      <section className="relative hidden overflow-hidden bg-emerald-950 p-10 text-white lg:flex lg:flex-col lg:justify-between xl:p-16" aria-label="Tentang EcoSpend">
+    <main className="grid min-h-screen bg-[var(--background)] lg:grid-cols-[0.85fr_1.15fr]">
+      <section className="relative hidden overflow-hidden bg-[#082419] texture-flow p-10 text-white lg:flex lg:flex-col lg:justify-between xl:p-16" aria-label="Tentang EcoSpend">
         <div className="absolute -right-20 -top-20 size-80 rounded-full border-[56px] border-emerald-800/50" aria-hidden="true" />
         <Link href="/" className="relative inline-flex items-center gap-2.5 text-lg font-bold tracking-tight">
-          <span className="grid size-9 place-items-center rounded-xl bg-lime-300 text-emerald-950"><Leaf className="size-5" aria-hidden="true" /></span>
+          <span className="grid size-10 place-items-center"><LeafCoin className="size-10" /></span>
           EcoSpend
         </Link>
         <div className="relative max-w-lg">
@@ -36,7 +37,7 @@ export function AuthShell({ eyebrow, title, description, children }: AuthShellPr
         </div>
         <div className="my-auto w-full max-w-md self-center py-14">
           <p className="text-sm font-semibold uppercase tracking-[0.16em] text-emerald-700">{eyebrow}</p>
-          <h1 className="mt-3 text-3xl font-bold tracking-[-0.04em] text-emerald-950 sm:text-4xl">{title}</h1>
+          <h1 className="mt-3 text-3xl font-bold tracking-[-0.04em] font-display text-[#0e3b2c] sm:text-4xl dark:text-[#eef5ef]">{title}</h1>
           <p className="mt-3 leading-7 text-slate-600">{description}</p>
           <div className="mt-8">{children}</div>
         </div>

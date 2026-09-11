@@ -14,16 +14,15 @@ import {
   ReceiptText,
   Scale,
   ShieldCheck,
-  Sparkles,
   Target,
   WalletCards,
 } from "lucide-react";
-import { DashboardPreview } from "@/components/public/dashboard-preview";
 import { LandingCta } from "@/components/public/landing-cta";
 import { ProofMarquee } from "@/components/public/proof-marquee";
 import { PwaRegister } from "@/components/public/pwa-register";
 import { Reveal } from "@/components/public/reveal";
 import { SectionHeading } from "@/components/public/section-heading";
+import { SignatureHero } from "@/components/public/signature-hero";
 import { SiteFooter } from "@/components/public/site-footer";
 import { SiteHeader } from "@/components/public/site-header";
 
@@ -50,73 +49,24 @@ export default function Home() {
       <PwaRegister />
       <SiteHeader />
       <main>
-        <section className="texture-dots relative overflow-hidden px-5 pb-20 pt-16 sm:px-8 sm:pt-20 lg:px-10 lg:pb-28 lg:pt-24">
-          <div className="animate-drift absolute left-[6%] top-16 size-72 rounded-full bg-lime-200/40 blur-3xl" aria-hidden="true" />
-          <div className="animate-drift-late absolute -right-24 top-1/3 size-96 rounded-full bg-emerald-300/25 blur-3xl" aria-hidden="true" />
-          <div className="texture-grid pointer-events-none absolute inset-0 opacity-60 [mask-image:radial-gradient(70%_60%_at_50%_30%,black,transparent)]" aria-hidden="true" />
-          <div className="relative mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16">
-            <Reveal>
-            <div className="max-w-2xl">
-              <div className="inline-flex items-center gap-2 rounded-full border border-emerald-800/15 bg-white/90 px-3 py-1.5 text-xs font-semibold text-emerald-800 shadow-sm backdrop-blur">
-                <span className="relative flex size-2" aria-hidden="true"><span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-500 opacity-60 motion-reduce:animate-none" /><span className="relative inline-flex size-2 rounded-full bg-emerald-600" /></span>
-                <Sparkles className="size-3.5" aria-hidden="true" />
-                Keuangan sehat, bumi lebih terjaga
-              </div>
-              <h1 className="font-display mt-6 text-balance text-5xl font-bold leading-[1.02] text-emerald-950 sm:text-6xl lg:text-7xl">
-                Pahami uangmu. <span className="bg-gradient-to-r from-emerald-700 via-emerald-500 to-lime-500 bg-clip-text text-transparent">Kenali dampaknya.</span>
-              </h1>
-              <p className="mt-6 max-w-xl text-pretty text-lg leading-8 text-slate-600">
-                EcoSpend membantu Anda mencatat keuangan, menjaga anggaran, dan melihat perkiraan jejak karbon dari pengeluaran—dalam satu tempat yang tenang dan mudah dipahami.
-              </p>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Link href="/register" className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-emerald-800 px-5 py-3 font-semibold text-white shadow-[0_18px_36px_-16px_rgb(4_120_87/0.8)] transition hover:-translate-y-0.5 hover:bg-emerald-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-2 motion-reduce:transform-none motion-reduce:transition-none">
-                  Mulai kelola sekarang <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5 motion-reduce:transition-none" aria-hidden="true" />
-                </Link>
-                <Link href="#cara-kerja" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-emerald-900/15 bg-white/90 px-5 py-3 font-semibold text-emerald-950 backdrop-blur transition hover:-translate-y-0.5 hover:bg-emerald-50 hover:shadow-lg hover:shadow-emerald-950/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 motion-reduce:transform-none motion-reduce:transition-none">
-                  Lihat cara kerja
-                </Link>
-              </div>
-              <div className="mt-8 grid max-w-lg grid-cols-3 gap-3">
-                {[
-                  { value: "150+", label: "Contoh transaksi demo" },
-                  { value: "8", label: "Halaman dasbor" },
-                  { value: "2", label: "Mode: demo & akun" },
-                ].map((stat) => (
-                  <div key={stat.label} className="rounded-2xl border border-emerald-950/10 bg-white/70 px-4 py-3 backdrop-blur">
-                    <p className="text-xl font-extrabold tracking-tight text-emerald-950">{stat.value}</p>
-                    <p className="mt-0.5 text-[11px] font-medium text-slate-600">{stat.label}</p>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-xs text-slate-600">
-                {['Gratis untuk memulai', 'Tanpa iklan', 'Privasi sebagai dasar'].map((item) => (
-                  <span key={item} className="inline-flex items-center gap-1.5"><Check className="size-3.5 text-emerald-700" aria-hidden="true" />{item}</span>
-                ))}
-              </div>
-            </div>
-            </Reveal>
-            <Reveal delay={140}>
-              <DashboardPreview />
-            </Reveal>
-          </div>
-        </section>
+        <SignatureHero />
         <ProofMarquee />
 
-        <section id="manfaat" className="relative scroll-mt-24 border-y border-emerald-950/10 bg-white px-5 py-20 sm:px-8 lg:px-10 lg:py-28">
+        <section id="manfaat" className="relative scroll-mt-24 border-y border-[var(--paper-line)] bg-[var(--paper)] px-5 py-20 sm:px-8 lg:px-10 lg:py-28">
           <div className="texture-dots pointer-events-none absolute inset-0 opacity-50 [mask-image:radial-gradient(60%_50%_at_50%_0%,black,transparent)]" aria-hidden="true" />
           <div className="relative mx-auto max-w-7xl">
             <SectionHeading eyebrow="Satu kebiasaan, tiga manfaat" title="Bukan sekadar mencatat pengeluaran." description="EcoSpend mengubah catatan harian menjadi konteks yang membantu Anda mengambil keputusan dengan lebih percaya diri." align="center" />
             <div className="mt-12 grid gap-5 md:grid-cols-3">
               {benefits.map((benefit, index) => (
                 <Reveal key={benefit.title} delay={index * 110}>
-                <article className="group relative h-full overflow-hidden rounded-[1.6rem] border border-emerald-950/10 bg-[#fbfcf9] p-6 transition duration-300 hover:-translate-y-1.5 hover:border-emerald-700/25 hover:shadow-[0_28px_50px_-28px_rgb(2_44_34/0.35)] motion-reduce:transform-none motion-reduce:transition-none">
+                <article className="group relative h-full overflow-hidden rounded-[1.6rem] eco-paper p-6 transition duration-300 hover:-translate-y-1.5 hover:border-emerald-700/25 hover:shadow-[0_28px_50px_-28px_rgb(2_44_34/0.35)] motion-reduce:transform-none motion-reduce:transition-none">
                   <div className="pointer-events-none absolute -right-12 -top-12 size-36 rounded-full bg-emerald-200/40 blur-2xl transition group-hover:bg-lime-200/60" aria-hidden="true" />
                   <div className="relative flex items-start justify-between gap-4">
-                    <span className="grid size-12 place-items-center rounded-2xl bg-gradient-to-br from-emerald-700 to-emerald-500 text-white shadow-lg shadow-emerald-900/20 transition group-hover:scale-105 motion-reduce:transition-none"><benefit.icon className="size-5" aria-hidden="true" /></span>
-                    <span className="font-mono text-xs text-emerald-950/65">0{index + 1}</span>
+                    <span className="grid size-12 place-items-center rounded-2xl bg-[#0e3b2c] text-[#d8ef87] shadow-lg shadow-[#082419]/30 transition group-hover:scale-105 motion-reduce:transition-none"><benefit.icon className="size-5" aria-hidden="true" /></span>
+                    <span className="font-mono text-xs font-ledger text-[#1e6f4e]">0{index + 1}</span>
                   </div>
-                  <h3 className="relative mt-6 text-xl font-bold tracking-tight text-emerald-950">{benefit.title}</h3>
-                  <p className="relative mt-3 text-sm leading-6 text-slate-600">{benefit.text}</p>
+                  <h3 className="relative mt-6 text-xl font-bold tracking-tight text-[#0e3b2c] dark:text-[#eef5ef]">{benefit.title}</h3>
+                  <p className="relative mt-3 text-sm leading-6 text-[#43544b] dark:text-[#c4d2c9]">{benefit.text}</p>
                 </article>
                 </Reveal>
               ))}
@@ -150,14 +100,14 @@ export default function Home() {
             />
           </div>
         </section>
-        <section id="cara-kerja" className="relative scroll-mt-24 overflow-hidden bg-emerald-950 px-5 py-20 text-white sm:px-8 lg:px-10 lg:py-28">
+        <section id="cara-kerja" className="texture-flow relative scroll-mt-24 overflow-hidden bg-[#082419] px-5 py-20 text-white sm:px-8 lg:px-10 lg:py-28">
           <div className="animate-drift pointer-events-none absolute -left-24 top-10 size-72 rounded-full bg-emerald-500/20 blur-3xl" aria-hidden="true" />
           <div className="pointer-events-none absolute inset-0 opacity-[0.12] [background-image:radial-gradient(white_1px,transparent_1px)] [background-size:26px_26px]" aria-hidden="true" />
           <div className="relative mx-auto max-w-7xl">
             <div className="grid gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:gap-20">
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.18em] text-lime-300">Cara kerja</p>
-                <h2 className="mt-4 text-balance text-3xl font-bold tracking-[-0.04em] sm:text-5xl">Tiga langkah menuju gambaran yang lebih utuh.</h2>
+                <h2 className="font-display mt-4 text-balance text-3xl font-bold sm:text-5xl">Tiga langkah menuju gambaran yang lebih utuh.</h2>
                 <p className="mt-5 max-w-lg leading-7 text-emerald-100/70">Mulai dari catatan sederhana. EcoSpend membantu menyusunnya menjadi insight, tanpa istilah yang membuat pusing.</p>
               </div>
               <ol className="space-y-2">
@@ -172,7 +122,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="transparansi" className="scroll-mt-24 bg-white px-5 py-20 sm:px-8 lg:px-10 lg:py-28" aria-labelledby="transparency-title">
+        <section id="transparansi" className="scroll-mt-24 bg-[var(--paper)] px-5 py-20 sm:px-8 lg:px-10 lg:py-28" aria-labelledby="transparency-title">
           <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2 lg:gap-20">
             <div className="relative min-h-[430px] overflow-hidden rounded-[2rem] bg-[#edf4e8] p-6 sm:p-10">
               <div className="absolute -right-14 -top-14 size-44 rounded-full border-[28px] border-lime-300/30" aria-hidden="true" />
@@ -190,7 +140,7 @@ export default function Home() {
             </div>
             <div>
               <p className="mb-4 text-sm font-semibold uppercase tracking-[0.18em] text-emerald-700">Transparansi metodologi</p>
-              <h2 id="transparency-title" className="text-balance text-3xl font-bold tracking-[-0.04em] text-emerald-950 sm:text-5xl">Angka yang bisa ditelusuri, batasan yang tidak disembunyikan.</h2>
+              <h2 id="transparency-title" className="font-display text-balance text-3xl font-bold text-[#0e3b2c] dark:text-[#eef5ef] sm:text-5xl">Angka yang bisa ditelusuri, batasan yang tidak disembunyikan.</h2>
               <p className="mt-6 text-lg leading-8 text-slate-600">Setiap estimasi dirancang untuk menyertakan metode, faktor, satuan, sumber, wilayah, dan versi. Anda berhak tahu dari mana sebuah angka berasal.</p>
               <Link href="/methodology" className="mt-7 inline-flex items-center gap-2 font-semibold text-emerald-800 hover:text-emerald-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600">
                 Pelajari metodologi <ChevronRight className="size-4" aria-hidden="true" />
@@ -207,7 +157,7 @@ export default function Home() {
             <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.18em] text-emerald-700">Keamanan & privasi</p>
-                <h2 id="security-title" className="mt-4 text-balance text-3xl font-bold tracking-[-0.04em] text-emerald-950 sm:text-5xl">Data Anda bukan komoditas.</h2>
+                <h2 id="security-title" className="font-display mt-4 text-balance text-3xl font-bold text-[#0e3b2c] dark:text-[#eef5ef] sm:text-5xl">Data Anda bukan komoditas.</h2>
                 <p className="mt-5 leading-7 text-slate-600">EcoSpend dirancang dengan minimisasi data dan batas akses sebagai prinsip, bukan tambahan di akhir.</p>
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
@@ -240,11 +190,11 @@ function FeatureBlock({ eyebrow, title, description, bullets, visual, reverse }:
     <article className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
       <Reveal className={reverse ? "lg:order-2" : ""}>
       <div>
-        <p className="inline-flex items-center gap-2 rounded-full border border-emerald-700/15 bg-emerald-50 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-emerald-700">{eyebrow}</p>
-        <h2 className="font-display mt-4 text-balance text-3xl font-bold text-emerald-950 sm:text-5xl">{title}</h2>
-        <p className="mt-5 text-lg leading-8 text-slate-600">{description}</p>
+        <p className="inline-flex items-center gap-2 rounded-full border border-[#1e6f4e]/25 bg-[#1e6f4e]/[.07] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#1e6f4e]">{eyebrow}</p>
+        <h2 className="font-display mt-4 text-balance text-3xl font-bold text-[#0e3b2c] dark:text-[#eef5ef] sm:text-5xl">{title}</h2>
+        <p className="mt-5 text-lg leading-8 text-[#43544b] dark:text-[#c4d2c9]">{description}</p>
         <ul className="mt-7 space-y-3">
-          {bullets.map((item) => <li key={item} className="flex items-start gap-3 text-sm leading-6 text-slate-700"><span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-emerald-700 text-white shadow-sm"><Check className="size-3" aria-hidden="true" /></span>{item}</li>)}
+          {bullets.map((item) => <li key={item} className="flex items-start gap-3 text-sm leading-6 text-[#33423a] dark:text-[#d4ded8]"><span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-emerald-700 text-white shadow-sm"><Check className="size-3" aria-hidden="true" /></span>{item}</li>)}
         </ul>
       </div>
       </Reveal>
@@ -255,23 +205,22 @@ function FeatureBlock({ eyebrow, title, description, bullets, visual, reverse }:
 
 function FinanceVisual() {
   return (
-    <div className="rounded-[2rem] bg-[#eaf3e4] p-5 sm:p-8">
-      <div className="rounded-2xl bg-white p-5 shadow-xl shadow-emerald-950/10">
-        <div className="flex items-center justify-between"><div><p className="text-xs text-slate-600">Saldo bersih</p><p className="mt-1 text-2xl font-bold text-emerald-950">Rp12.460.000</p></div><span className="grid size-11 place-items-center rounded-xl bg-emerald-100 text-emerald-800"><WalletCards className="size-5" aria-hidden="true" /></span></div>
-        <div className="mt-7 grid grid-cols-2 gap-3"><MiniStat icon={ArrowRight} label="Pemasukan" value="Rp8,5 jt" green /><MiniStat icon={ArrowRight} label="Pengeluaran" value="Rp4,2 jt" /></div>
-        <div className="mt-6"><div className="flex items-end justify-between"><p className="text-sm font-semibold text-slate-800">Arus kas</p><p className="text-xs text-emerald-700">+14% bulan ini</p></div><div className="mt-5 flex h-28 items-end gap-2">{[30,55,42,72,48,84,68,92].map((height, i) => <span key={i} className="flex-1 rounded-t-md bg-emerald-700/15" style={{ height: `${height}%` }}><span className="block w-full rounded-t-md bg-emerald-700" style={{ height: `${Math.max(20, height - 22)}%` }} /></span>)}</div></div>
-      </div>
+    <div className="eco-paper relative overflow-hidden rounded-[1.7rem] p-5 sm:p-8">
+      <div className="texture-flow pointer-events-none absolute inset-0 opacity-70" aria-hidden="true" />
+      <div className="eco-ledger-row relative flex items-start justify-between gap-4 pb-5"><div><p className="font-ledger text-[11px] uppercase tracking-[0.2em] text-[#1e6f4e]">Halaman 01 · Keuangan</p><p className="font-display mt-2 text-3xl font-extrabold text-[#0e3b2c]">Rp12.460.000</p><p className="mt-1 text-xs text-[#43544b]">Saldo bersih jurnal bulan ini</p></div><span className="grid size-11 place-items-center rounded-full bg-[#0e3b2c] text-[#d8ef87]"><WalletCards className="size-5" aria-hidden="true" /></span></div>
+      <div className="relative mt-5 grid grid-cols-2 gap-3"><MiniStat icon={ArrowRight} label="Uang masuk" value="Rp8,5 jt" green /><MiniStat icon={ArrowRight} label="Uang keluar" value="Rp4,2 jt" /></div>
+      <div className="relative mt-6"><div className="flex items-end justify-between"><p className="text-sm font-bold text-[#0e3b2c]">Alur delapan pekan</p><p className="font-ledger text-xs text-[#1e6f4e]">+14% bulan ini</p></div><div className="mt-5 flex h-28 items-end gap-2">{[30,55,42,72,48,84,68,92].map((height, i) => <span key={i} className="flex-1 rounded-t-full bg-[#1e6f4e]/15" style={{ height: `${height}%` }}><span className="block w-full rounded-t-full bg-gradient-to-t from-[#1e6f4e] to-[#57c87a]" style={{ height: `${Math.max(20, height - 22)}%` }} /></span>)}</div></div>
     </div>
   );
 }
 
 function BudgetVisual() {
   const items = [{ label: 'Makan & minum', spent: 'Rp1,2 jt', width: '72%' }, { label: 'Transportasi', spent: 'Rp640 rb', width: '48%' }, { label: 'Belanja rumah', spent: 'Rp890 rb', width: '63%' }];
-  return <div className="rounded-[2rem] bg-[#f3eee3] p-5 sm:p-8"><div className="rounded-2xl bg-white p-5 shadow-xl shadow-emerald-950/10"><div className="flex items-center justify-between"><div><p className="text-xs text-slate-600">Anggaran September</p><p className="mt-1 text-xl font-bold text-emerald-950">Rp4,7 jt tersisa</p></div><span className="grid size-11 place-items-center rounded-xl bg-orange-100 text-orange-800"><PiggyBank className="size-5" aria-hidden="true" /></span></div><div className="mt-7 space-y-5">{items.map((item) => <div key={item.label}><div className="mb-2 flex justify-between text-xs"><span className="font-medium text-slate-700">{item.label}</span><span className="text-slate-600">{item.spent}</span></div><div className="h-2 overflow-hidden rounded-full bg-slate-100"><div className="h-full rounded-full bg-emerald-700" style={{ width: item.width }} /></div></div>)}</div><div className="mt-7 flex items-center gap-3 rounded-xl bg-emerald-50 p-4"><Gauge className="size-5 text-emerald-700" aria-hidden="true" /><p className="text-xs leading-5 text-emerald-950"><strong>Masih sesuai rencana.</strong><br />Anda telah memakai 58% anggaran bulan ini.</p></div></div></div>;
+  return <div className="eco-paper relative overflow-hidden rounded-[1.7rem] bg-[#f3eee3] p-5 sm:p-8"><div className="relative rounded-2xl border border-[#0e3b2c]/10 bg-white p-5 shadow-xl shadow-[#082419]/10"><div className="flex items-center justify-between"><div><p className="font-ledger text-[11px] uppercase tracking-[0.2em] text-[#1e6f4e]">Rencana belanja</p><p className="font-display mt-1 text-xl font-extrabold text-[#0e3b2c]">Rp4,7 jt tersisa</p></div><span className="grid size-11 place-items-center rounded-full bg-[#d99a2b] text-white"><PiggyBank className="size-5" aria-hidden="true" /></span></div><div className="mt-7 space-y-5">{items.map((item) => <div key={item.label}><div className="mb-2 flex justify-between text-xs"><span className="font-semibold text-[#33423a]">{item.label}</span><span className="font-ledger text-[#2e3d35]">{item.spent}</span></div><div className="h-2 overflow-hidden rounded-full bg-[#0e3b2c]/10"><div className="h-full rounded-full bg-gradient-to-r from-[#1e6f4e] to-[#57c87a]" style={{ width: item.width }} /></div></div>)}</div><div className="mt-7 flex items-center gap-3 rounded-xl bg-[#1e6f4e]/[.07] p-4"><Gauge className="size-5 text-[#1e6f4e]" aria-hidden="true" /><p className="text-xs leading-5 text-[#0e3b2c]"><strong>Masih sesuai rencana.</strong><br />Anda telah memakai 58% anggaran bulan ini.</p></div></div></div>;
 }
 
 function CarbonVisual() {
-  return <div className="rounded-[2rem] bg-emerald-900 p-5 text-white sm:p-8"><div className="rounded-2xl border border-white/10 bg-emerald-950/60 p-5"><div className="flex items-center justify-between"><div><p className="text-xs text-emerald-100/60">Perkiraan bulan ini</p><p className="mt-1 text-3xl font-bold">86,4 kg CO₂e*</p></div><span className="grid size-11 place-items-center rounded-xl bg-lime-300 text-emerald-950"><Leaf className="size-5" aria-hidden="true" /></span></div><div className="mt-7 grid grid-cols-[auto_1fr] items-center gap-6"><div className="grid size-28 place-items-center rounded-full border-[12px] border-emerald-700 border-t-lime-300"><span className="text-lg font-bold">−12%</span></div><div className="space-y-3"><Legend color="bg-lime-300" label="Transportasi" value="34%" /><Legend color="bg-emerald-400" label="Makanan" value="28%" /><Legend color="bg-orange-300" label="Belanja" value="21%" /><Legend color="bg-slate-400" label="Lainnya" value="17%" /></div></div><div className="mt-7 flex items-center gap-3 border-t border-white/10 pt-5 text-xs text-emerald-100/70"><LineChart className="size-4 text-lime-300" aria-hidden="true" />Estimasi turun dibanding periode sebelumnya.</div></div></div>;
+  return <div className="relative overflow-hidden rounded-[1.7rem] bg-[#082419] p-5 text-white sm:p-8"><div className="texture-flow pointer-events-none absolute inset-0 opacity-30" aria-hidden="true" /><div className="relative rounded-2xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur"><div className="flex items-center justify-between"><div><p className="font-ledger text-[11px] uppercase tracking-[0.2em] text-[#d8ef87]">Catatan dampak</p><p className="font-display mt-1 text-3xl font-extrabold">86,4 kg CO₂e*</p></div><span className="grid size-11 place-items-center rounded-full bg-[#d8ef87] text-[#082419]"><Leaf className="size-5" aria-hidden="true" /></span></div><div className="mt-7 grid grid-cols-[auto_1fr] items-center gap-6"><div className="grid size-28 place-items-center rounded-full border-[12px] border-white/10 border-t-[#d8ef87]"><span className="font-ledger text-lg font-bold">−12%</span></div><div className="space-y-3"><Legend color="bg-[#d8ef87]" label="Transportasi" value="34%" /><Legend color="bg-[#57c87a]" label="Makanan" value="28%" /><Legend color="bg-[#e3bb68]" label="Belanja" value="21%" /><Legend color="bg-white/40" label="Lainnya" value="17%" /></div></div><div className="mt-7 flex items-center gap-3 border-t border-white/10 pt-5 text-xs text-white/70"><LineChart className="size-4 text-[#d8ef87]" aria-hidden="true" />Estimasi turun dibanding periode sebelumnya.</div></div></div>;
 }
 
 function MiniStat({ icon: Icon, label, value, green }: { icon: typeof ArrowRight; label: string; value: string; green?: boolean }) { return <div className="rounded-xl bg-slate-50 p-3"><span className={`grid size-7 place-items-center rounded-lg ${green ? 'bg-emerald-100 text-emerald-700' : 'bg-orange-100 text-orange-700'}`}><Icon className={`size-3.5 ${green ? '-rotate-45' : 'rotate-45'}`} aria-hidden="true" /></span><p className="mt-3 text-[10px] text-slate-600">{label}</p><p className="text-sm font-bold text-slate-900">{value}</p></div>; }

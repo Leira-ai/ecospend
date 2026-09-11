@@ -6,7 +6,7 @@ test.beforeEach(async ({ page }) => {
 
 test("landing page presents product value and reaches the demo", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1, name: /Pahami uangmu/ })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: /Tiap rupiah punya/ })).toBeVisible();
   await expect(page.getByRole("navigation", { name: "Navigasi utama" })).toBeVisible();
   await expect(page.getByRole("link", { name: "Pelajari metodologi" })).toHaveAttribute("href", "/methodology");
 

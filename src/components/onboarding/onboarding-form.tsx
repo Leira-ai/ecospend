@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowRight, Info, Leaf, LoaderCircle, ShieldCheck } from "lucide-react";
+import { ArrowRight, Info, LoaderCircle, ShieldCheck } from "lucide-react";
+import { LeafCoin } from "@/components/brand/leaf-coin";
 import { useTheme } from "next-themes";
 import { type FormEvent, useState } from "react";
 import { createOptionalBrowserClient } from "@/lib/supabase/client";
@@ -106,7 +107,7 @@ export function OnboardingForm({ destination, initialValues, configurationMessag
     <main className="min-h-screen bg-[#f4f8f5] px-4 py-8 text-slate-950 dark:bg-slate-950 dark:text-white sm:px-6 lg:py-12">
       <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[0.72fr_1.28fr]">
         <aside className="rounded-3xl bg-emerald-950 p-7 text-white lg:sticky lg:top-8 lg:h-fit lg:p-9">
-          <Link href="/" className="inline-flex items-center gap-2 text-lg font-bold"><span className="grid size-9 place-items-center rounded-xl bg-lime-300 text-emerald-950"><Leaf className="size-5" aria-hidden="true" /></span>EcoSpend</Link>
+          <Link href="/" className="inline-flex items-center gap-2 text-lg font-bold"><LeafCoin className="size-10" />EcoSpend</Link>
           <p className="mt-12 text-xs font-bold uppercase tracking-[0.18em] text-lime-300">Langkah opsional</p>
           <h1 className="mt-3 text-3xl font-bold tracking-[-0.04em]">Siapkan pengalaman Anda</h1>
           <p className="mt-4 leading-7 text-emerald-100/75">Beri tahu preferensi dasar agar anggaran, target, dan estimasi EcoSpend lebih relevan.</p>

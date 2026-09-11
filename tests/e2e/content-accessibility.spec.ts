@@ -39,7 +39,7 @@ test("mobile navigation exposes dashboard destinations", async ({ page }) => {
   await expect(page.getByRole("navigation", { name: "Navigasi cepat seluler" })).toBeVisible();
   await page.getByRole("button", { name: "Buka navigasi" }).click();
   await expect(page.getByRole("navigation", { name: "Navigasi utama" })).toBeVisible();
-  await page.getByRole("link", { name: "Jejak karbon" }).click();
+  await page.getByRole("navigation", { name: "Navigasi utama" }).getByRole("link", { name: "Jejak karbon" }).click();
   await expect(page.getByRole("heading", { level: 1, name: "Jejak karbon" })).toBeVisible();
 });
 

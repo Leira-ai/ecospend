@@ -16,7 +16,7 @@ test.beforeEach(async ({ page }) => {
 
 test("public landing page has no serious Axe violations", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1, name: /Pahami uangmu/ })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: /Tiap rupiah punya/ })).toBeVisible();
 
   await expectNoSeriousAxeViolations(page);
 });
