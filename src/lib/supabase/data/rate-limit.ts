@@ -18,6 +18,25 @@ export function enforceRateLimit(key: string, limit: number, windowMs: number): 
   }
 }
 
+export function getRateLimitHeaders(key: string, limit: number): Record<string, string> {
+  const now = Date.now();
+  const bucket = buckets.get(key);
+  if (!bucket || bucket.resetAt <= now) {
+    return {
+      "RateLimit-Limit": String(limit),
+      "RateLimit-Remaining": String(limit),
+      "RateLimit-Reset": "0",
+    };
+  }
+  const remaining = Math.max(0, limit - bucket.count);
+  const resetSeconds = Math.max(0, Math.ceil((bucket.resetAt - now) / 1000));
+  return {
+    "RateLimit-Limit": String(limit),
+    "RateLimit-Remaining": String(remaining),
+    "RateLimit-Reset": String(resetSeconds),
+  };
+}
+
 export function resetRateLimitsForTests(): void {
   buckets.clear();
 }

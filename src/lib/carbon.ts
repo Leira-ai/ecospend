@@ -61,6 +61,28 @@ function availableEstimate(
   };
 }
 
+export const CARBON_METHODOLOGY_VERSION = "2026.1";
+export const CARBON_DATASET_SOURCE = "EcoSpend Indikatif ID 2026";
+
+export function getCarbonConfidenceLabel(confidence: "high" | "medium" | "low" | undefined): string {
+  switch (confidence) {
+    case "high":
+      return "Tinggi (Faktor terukur langsung)";
+    case "medium":
+      return "Sedang (Faktor proxy aktivitas)";
+    case "low":
+      return "Rendah (Estimasi berbasis belanja)";
+    default:
+      return "Indikatif";
+  }
+}
+
+/** Converts grams CO2e to kilograms rounded deterministically to 2 decimal places */
+export function formatGramsToKilogramsRounded(gramsCo2e: bigint): number {
+  const scaled = divideRounded(gramsCo2e * 100n, 1000n);
+  return Number(scaled) / 100;
+}
+
 export function sumCarbon(estimates: readonly CarbonEstimate[]): bigint {
   return estimates.reduce((total, estimate) => total + (estimate.available ? estimate.gramsCo2e : 0n), 0n);
 }

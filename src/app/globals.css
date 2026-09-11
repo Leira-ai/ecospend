@@ -168,3 +168,39 @@ body {
   .reveal { opacity: 1; translate: 0 0; transition: none; }
   .animate-drift, .animate-drift-late, .animate-marquee, .animate-pop { animation: none; }
 }
+
+/* Skip-link: first focusable element in the tab order */
+.skip-link {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 100;
+  transform: translateY(-200%);
+  transition: transform 0.2s ease-in-out;
+  background-color: #082419;
+  color: #ffffff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+  text-decoration: none;
+}
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline: 2px solid #57c87a;
+  outline-offset: 2px;
+}
+
+@media (forced-colors: active) {
+  .eco-paper,
+  .skip-link,
+  article,
+  section,
+  button,
+  input,
+  select {
+    border: 1px solid ButtonText !important;
+  }
+}

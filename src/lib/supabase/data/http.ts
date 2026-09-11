@@ -55,8 +55,8 @@ function errorResponse(error: unknown): NextResponse {
 }
 
 export function assertMutationOrigin(request: Request): void {
-  const requestOrigin = new URL(request.url).origin;
-  const origin = request.headers.get("origin");
+  const requestOrigin = new URL(request.url).origin.toLowerCase();
+  const origin = request.headers.get("origin")?.toLowerCase();
   const fetchSite = request.headers.get("sec-fetch-site");
   if ((origin && origin !== requestOrigin) || fetchSite === "cross-site") {
     throw new ApiError(403, "cross_site_request", "Cross-site mutation rejected");

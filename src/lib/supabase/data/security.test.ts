@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it } from "vitest";
 import { assertMutationOrigin, ApiError } from "./http";
 import { canonicalDigest, createPreviewToken, verifyPreviewToken } from "./import-token";
-import { enforceRateLimit, resetRateLimitsForTests } from "./rate-limit";
+import { enforceRateLimit, getRateLimitHeaders, resetRateLimitsForTests } from "./rate-limit";
 import { serializeDatabaseValue } from "./serialization";
 
 const USER_A = "10000000-0000-4000-8000-000000000001";
@@ -46,5 +46,16 @@ describe("response safety and rate limiting", () => {
   it("enforces the documented best-effort in-memory limit", () => {
     enforceRateLimit("user", 1, 1_000);
     expect(() => enforceRateLimit("user", 1, 1_000)).toThrowError(ApiError);
+  });
+
+  it("exposes typed RateLimit headers", () => {
+    expect(getRateLimitHeaders("new-key", 60)["RateLimit-Limit"]).toBe("60");
+    enforceRateLimit("typed-key", 5, 60_000);
+    expect(getRateLimitHeaders("typed-key", 5)["RateLimit-Remaining"]).toBe("4");
+  });
+
+  it("treats mutation origin comparison as case-insensitive", () => {
+    const request = new Request("https://APP.EXAMPLE/api/accounts", { headers: { origin: "https://app.example", "sec-fetch-site": "same-origin" } });
+    expect(() => assertMutationOrigin(request)).not.toThrow();
   });
 });

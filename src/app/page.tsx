@@ -48,7 +48,7 @@ export default function Home() {
     <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
       <PwaRegister />
       <SiteHeader />
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <SignatureHero />
         <ProofMarquee />
 

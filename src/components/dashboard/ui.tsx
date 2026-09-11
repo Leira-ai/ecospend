@@ -73,7 +73,7 @@ export function SectionCard({ eyebrow, title, description, icon, children, actio
 
 export function EmptyState({ title, description, action }: { title: string; description: string; action?: React.ReactNode }) {
   return (
-    <div className="flex min-h-48 flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 p-6 text-center dark:border-slate-700">
+    <div role="status" className="flex min-h-48 flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 p-6 text-center dark:border-slate-700">
       <p className="font-semibold text-slate-900 dark:text-white">{title}</p>
       <p className="mt-1 max-w-sm text-sm text-slate-600 dark:text-slate-300">{description}</p>
       {action && <div className="mt-4">{action}</div>}
@@ -83,6 +83,7 @@ export function EmptyState({ title, description, action }: { title: string; desc
 
 export function Modal({ open, title, description, onClose, children, size = "md" }: { open: boolean; title: string; description?: string; onClose: () => void; children: React.ReactNode; size?: "md" | "lg" | "xl" }) {
   const titleId = useId();
+  const descriptionId = useId();
   const dialogRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<Element | null>(null);
   useEffect(() => {
@@ -112,9 +113,9 @@ export function Modal({ open, title, description, onClose, children, size = "md"
   const widths = { md: "max-w-lg", lg: "max-w-2xl", xl: "max-w-4xl" };
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-slate-950/55 p-0 backdrop-blur-sm sm:items-center sm:p-4" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
-      <div ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby={titleId} className={`max-h-[92vh] w-full overflow-y-auto rounded-t-3xl bg-white p-5 shadow-2xl sm:rounded-2xl sm:p-6 dark:bg-slate-900 ${widths[size]}`}>
+      <div ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby={titleId} aria-describedby={description ? descriptionId : undefined} className={`max-h-[92vh] w-full overflow-y-auto rounded-t-3xl bg-white p-5 shadow-2xl sm:rounded-2xl sm:p-6 dark:bg-slate-900 ${widths[size]}`}>
         <div className="mb-5 flex items-start justify-between gap-4">
-          <div><h2 id={titleId} tabIndex={-1} className="text-xl font-bold text-slate-950 outline-none dark:text-white">{title}</h2>{description && <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">{description}</p>}</div>
+          <div><h2 id={titleId} tabIndex={-1} className="text-xl font-bold text-slate-950 outline-none dark:text-white">{title}</h2>{description && <p id={descriptionId} className="mt-1 text-sm text-slate-600 dark:text-slate-300">{description}</p>}</div>
           <button type="button" onClick={onClose} aria-label="Tutup dialog" className="grid size-11 shrink-0 place-items-center rounded-xl text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800"><X className="size-5" /></button>
         </div>
         {children}

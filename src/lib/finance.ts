@@ -113,3 +113,47 @@ export function forecastCashFlow(transactions: readonly Transaction[], asOf: str
 function daysBetween(from: string, to: string): number {
   return Math.trunc((Date.parse(`${to}T00:00:00Z`) - Date.parse(`${from}T00:00:00Z`)) / 86_400_000);
 }
+
+export function getCashFlowStatus(
+  income: Money,
+  expense: Money,
+): { status: "surplus" | "deficit" | "balanced"; label: string; tone: "emerald" | "rose" | "slate" } {
+  if (income.amountMinor > expense.amountMinor) {
+    return { status: "surplus", label: "Surplus kas sehat", tone: "emerald" };
+  }
+  if (income.amountMinor < expense.amountMinor) {
+    return { status: "deficit", label: "Pengeluaran melebihi pemasukan", tone: "rose" };
+  }
+  return { status: "balanced", label: "Arus kas seimbang", tone: "slate" };
+}
+
+export function computePercentageChange(current: bigint | number, previous: bigint | number): number {
+  const c = typeof current === "bigint" ? Number(current) : current;
+  const p = typeof previous === "bigint" ? Number(previous) : previous;
+  if (p === 0) return c > 0 ? 100 : c < 0 ? -100 : 0;
+  return Math.round(((c - p) / Math.abs(p)) * 100);
+}
+
+export function getBudgetThresholdStatus(spent: Money, limit: Money): "normal" | "warning" | "exceeded" {
+  if (limit.amountMinor <= 0n) return "normal";
+  if (spent.amountMinor >= limit.amountMinor) return "exceeded";
+  if (spent.amountMinor * 10n >= limit.amountMinor * 8n) return "warning";
+  return "normal";
+}
+
+const CATEGORY_COLORS: Readonly<Record<string, string>> = {
+  "Makanan & Minuman": "#10b981",
+  "Transportasi": "#0ea5e9",
+  "Belanja": "#f59e0b",
+  "Tagihan": "#ef4444",
+  "Hiburan": "#8b5cf6",
+  "Kesehatan": "#ec4899",
+  "Pendidikan": "#6366f1",
+  "Investasi": "#14b8a6",
+  "Lainnya": "#64748b",
+};
+
+export function getCategoryColor(category: string): string {
+  return CATEGORY_COLORS[category] ?? "#10b981";
+}
+

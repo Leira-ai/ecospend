@@ -1,7 +1,8 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { debounce } from "@/lib/debounce";
 import { useForm, useWatch } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -55,6 +56,18 @@ export function TransactionManager({ openOnLoad = false }: { openOnLoad?: boolea
   const [deleting, setDeleting] = useState<string[]>([]);
   const [bulkCategory, setBulkCategory] = useState("");
   const [attachmentTransaction, setAttachmentTransaction] = useState<Transaction | null>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "/" && document.activeElement?.tagName !== "INPUT" && document.activeElement?.tagName !== "TEXTAREA" && document.activeElement?.tagName !== "SELECT") {
+        event.preventDefault();
+        searchInputRef.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   const filtered = useMemo(() => store.transactions.filter((item) => {
     const text = `${item.name} ${item.category} ${item.account}`.toLowerCase();
@@ -99,7 +112,27 @@ export function TransactionManager({ openOnLoad = false }: { openOnLoad?: boolea
   return (
     <>
       <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
-        <div className="relative flex-1"><Search className="pointer-events-none absolute left-3 top-3.5 size-4 text-slate-500" /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Cari transaksi, kategori, atau akun" aria-label="Cari transaksi" className={`${inputClass} pl-10`} /></div>
+        <div className="relative flex-1">
+          <Search className="pointer-events-none absolute left-3 top-3.5 size-4 text-slate-500" />
+          <input
+            ref={searchInputRef}
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="Cari transaksi, kategori, atau akun (tekan /)"
+            aria-label="Cari transaksi"
+            className={`${inputClass} pl-10 pr-10`}
+          />
+          {query && (
+            <button
+              type="button"
+              onClick={() => setQuery("")}
+              aria-label="Bersihkan pencarian"
+              className="absolute right-2.5 top-2.5 grid size-7 place-items-center rounded-lg text-slate-400 hover:bg-slate-100 hover:text-slate-600 dark:hover:bg-slate-800"
+            >
+              <X className="size-3.5" />
+            </button>
+          )}
+        </div>
         <select value={category} onChange={(event) => setCategory(event.target.value)} aria-label="Filter kategori" className={`${inputClass} lg:w-52`}><option>Semua</option>{categories.map((item) => <option key={item}>{item}</option>)}</select>
         <select value={type} onChange={(event) => setType(event.target.value)} aria-label="Filter jenis" className={`${inputClass} lg:w-44`}><option>Semua</option><option value="pemasukan">Pemasukan</option><option value="pengeluaran">Pengeluaran</option><option value="transfer">Transfer</option></select>
         <button type="button" className={buttonPrimary} onClick={openCreate}><Plus className="size-4" />Tambah</button>
@@ -113,7 +146,7 @@ export function TransactionManager({ openOnLoad = false }: { openOnLoad?: boolea
         </>}
       </div>
       <div className="flex flex-wrap gap-2"><button type="button" onClick={exportCsv} className={buttonSecondary}><Download className="size-4" />Ekspor CSV</button><button type="button" onClick={exportXlsx} className={buttonSecondary}><FileSpreadsheet className="size-4" />Ekspor XLSX</button><a href="/dashboard/impor?demo=1" className={buttonSecondary}><Upload className="size-4" />Impor data</a></div>
-      <Modal open={modal} title={editing ? "Edit transaksi" : "Tambah transaksi"} description="Data demo hanya tersimpan di perangkat ini." onClose={() => setModal(false)} size="lg"><form onSubmit={submit} className="grid gap-4 sm:grid-cols-2"><label><span className={labelClass}>Jenis</span><select {...form.register("type")} className={inputClass}><option value="pengeluaran">Pengeluaran</option><option value="pemasukan">Pemasukan</option><option value="transfer">Transfer antar akun</option></select></label><label><span className={labelClass}>Tanggal</span><input type="date" {...form.register("date")} className={inputClass} />{form.formState.errors.date && <span className="text-xs text-rose-600">{form.formState.errors.date.message}</span>}</label><label className="sm:col-span-2"><span className={labelClass}>Nama transaksi</span><input {...form.register("name")} className={inputClass} placeholder="Contoh: Belanja pasar" />{form.formState.errors.name && <span className="text-xs text-rose-600">{form.formState.errors.name.message}</span>}</label><label><span className={labelClass}>Kategori</span><select {...form.register("category")} className={inputClass}>{categories.map((item) => <option key={item}>{item}</option>)}</select></label><label><span className={labelClass}>Nominal</span><input type="number" min="0" step="1000" {...form.register("amount", { valueAsNumber: true })} className={inputClass} />{form.formState.errors.amount && <span className="text-xs text-rose-600">{form.formState.errors.amount.message}</span>}</label><label><span className={labelClass}>Akun asal</span><select {...form.register("account")} className={inputClass}>{store.accounts.map((item) => <option key={item.id}>{item.name}</option>)}</select></label>{transactionType === "transfer" && <label><span className={labelClass}>Akun tujuan</span><select {...form.register("destinationAccount")} className={inputClass}><option value="">Pilih akun</option>{store.accounts.map((item) => <option key={item.id}>{item.name}</option>)}</select>{form.formState.errors.destinationAccount && <span className="text-xs text-rose-600">{form.formState.errors.destinationAccount.message}</span>}</label>}<label><span className={labelClass}>Estimasi karbon (kg CO₂e)</span><input type="number" min="0" step="0.1" {...form.register("carbonKg", { valueAsNumber: true })} className={inputClass} /></label><label className={transactionType === "transfer" ? "sm:col-span-2" : ""}><span className={labelClass}>Catatan</span><input {...form.register("notes")} className={inputClass} placeholder="Opsional" /></label><div className="flex justify-end gap-2 sm:col-span-2"><button type="button" onClick={() => setModal(false)} className={buttonSecondary}>Batal</button><button type="submit" className={buttonPrimary}>{editing ? "Simpan perubahan" : "Tambah transaksi"}</button></div></form></Modal>
+      <Modal open={modal} title={editing ? "Edit transaksi" : "Tambah transaksi"} description="Data demo hanya tersimpan di perangkat ini." onClose={() => setModal(false)} size="lg"><form onSubmit={submit} className="grid gap-4 sm:grid-cols-2"><label><span className={labelClass}>Jenis</span><select {...form.register("type")} className={inputClass}><option value="pengeluaran">Pengeluaran</option><option value="pemasukan">Pemasukan</option><option value="transfer">Transfer antar akun</option></select></label><label><span className={labelClass}>Tanggal</span><input type="date" {...form.register("date")} className={inputClass} />{form.formState.errors.date && <span role="alert" className="text-xs text-rose-600">{form.formState.errors.date.message}</span>}</label><label className="sm:col-span-2"><span className={labelClass}>Nama transaksi</span><input {...form.register("name")} className={inputClass} placeholder="Contoh: Belanja pasar" />{form.formState.errors.name && <span role="alert" className="text-xs text-rose-600">{form.formState.errors.name.message}</span>}</label><label><span className={labelClass}>Kategori</span><select {...form.register("category")} className={inputClass}>{categories.map((item) => <option key={item}>{item}</option>)}</select></label><label><span className={labelClass}>Nominal</span><input type="number" min="0" step="1000" {...form.register("amount", { valueAsNumber: true })} className={inputClass} />{form.formState.errors.amount && <span role="alert" className="text-xs text-rose-600">{form.formState.errors.amount.message}</span>}</label><label><span className={labelClass}>Akun asal</span><select {...form.register("account")} className={inputClass}>{store.accounts.map((item) => <option key={item.id}>{item.name}</option>)}</select></label>{transactionType === "transfer" && <label><span className={labelClass}>Akun tujuan</span><select {...form.register("destinationAccount")} className={inputClass}><option value="">Pilih akun</option>{store.accounts.map((item) => <option key={item.id}>{item.name}</option>)}</select>{form.formState.errors.destinationAccount && <span role="alert" className="text-xs text-rose-600">{form.formState.errors.destinationAccount.message}</span>}</label>}<label><span className={labelClass}>Estimasi karbon (kg CO₂e)</span><input type="number" min="0" step="0.1" {...form.register("carbonKg", { valueAsNumber: true })} className={inputClass} /></label><label className={transactionType === "transfer" ? "sm:col-span-2" : ""}><span className={labelClass}>Catatan</span><input {...form.register("notes")} className={inputClass} placeholder="Opsional" /></label><div className="flex justify-end gap-2 sm:col-span-2"><button type="button" onClick={() => setModal(false)} className={buttonSecondary}>Batal</button><button type="submit" className={buttonPrimary}>{editing ? "Simpan perubahan" : "Tambah transaksi"}</button></div></form></Modal>
       <Modal open={attachmentTransaction !== null} title="Kelola lampiran" description="Lampiran bersifat privat dan hanya dapat diakses oleh akun Anda." onClose={() => setAttachmentTransaction(null)} size="lg">{attachmentTransaction && <AttachmentManager transactionId={attachmentTransaction.id} transactionName={attachmentTransaction.name} />}</Modal>
       <ConfirmDialog open={deleting.length > 0} title="Hapus transaksi?" description={`${deleting.length} transaksi akan dihapus dari data demo. Tindakan ini tidak dapat dibatalkan.`} confirmLabel="Hapus" danger onClose={() => setDeleting([])} onConfirm={() => { store.deleteTransactions(deleting); setSelected((current) => current.filter((id) => !deleting.includes(id))); toast.success("Transaksi dihapus"); }} />
     </>
