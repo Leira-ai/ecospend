@@ -24,6 +24,8 @@ const linkGroups = [
     links: [
       { label: "Privasi", href: "/privacy" },
       { label: "Syarat penggunaan", href: "/terms" },
+      { label: "Kebijakan refund", href: "/refund-policy" },
+      { label: "Harga", href: "/pricing" },
     ],
   },
 ] as const;

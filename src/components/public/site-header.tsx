@@ -10,6 +10,8 @@ const navigation = [
   { label: "Fitur", href: "#fitur" },
   { label: "Cara kerja", href: "#cara-kerja" },
   { label: "Metodologi", href: "/methodology" },
+  { label: "Harga", href: "/pricing" },
+  { label: "Kalkulator CO₂e", href: "/kalkulator-emisi" },
 ] as const;
 
 export function SiteHeader() {
