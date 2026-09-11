@@ -1,12 +1,12 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import { safeOnboardingDestination } from "@/components/onboarding/model";
 import { createOptionalServerClient } from "@/lib/supabase/server";
 
-const allowedDestinations = new Set(["/dashboard", "/reset-password"]);
-
 function destinationFrom(url: URL): string {
-  const requested = url.searchParams.get("next") ?? "/dashboard";
-  return allowedDestinations.has(requested) ? requested : "/dashboard";
+  const requested = url.searchParams.get("next");
+  if (requested === "/reset-password") return "/reset-password";
+  return safeOnboardingDestination(requested);
 }
 
 function errorRedirect(url: URL, code: string, recovery: boolean): NextResponse {
