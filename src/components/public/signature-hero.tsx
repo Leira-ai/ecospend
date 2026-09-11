@@ -9,14 +9,14 @@ const promises = ["Gratis untuk memulai", "Tanpa iklan", "Privasi sebagai dasar"
 
 export function SignatureHero() {
   return (
-    <section className="texture-flow relative overflow-hidden border-b border-[var(--paper-line)] px-5 pb-24 pt-14 sm:px-8 sm:pt-20 lg:px-10 lg:pb-32 lg:pt-24">
+    <section className="texture-flow relative overflow-hidden border-b border-[var(--paper-line)] bg-[#f6f4ec] px-5 pb-24 pt-14 sm:px-8 sm:pt-20 lg:px-10 lg:pb-32 lg:pt-24 dark:bg-[#08130e]">
       <div className="pointer-events-none absolute -left-28 top-10 size-[28rem] rounded-full bg-[#8fcf9d]/25 blur-3xl" aria-hidden="true" />
       <div className="pointer-events-none absolute -right-40 top-28 size-[30rem] rounded-full bg-[#e3bb68]/20 blur-3xl" aria-hidden="true" />
       <div className="relative mx-auto max-w-7xl">
         <div className="grid items-center gap-14 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16">
           <Reveal>
             <div className="max-w-2xl">
-              <div className="inline-flex items-center gap-2 rounded-full border border-[#1e6f4e]/20 bg-[#fbf9f3]/90 px-3 py-1.5 text-xs font-bold text-[#1e6f4e] shadow-sm backdrop-blur">
+              <div className="inline-flex items-center gap-2 rounded-full border border-[#1e6f4e]/20 bg-[#fbf9f3]/90 px-3 py-1.5 text-xs font-bold text-[#1e6f4e] shadow-sm backdrop-blur dark:border-emerald-400/30 dark:bg-emerald-950/70 dark:text-emerald-200">
                 <LeafCoin className="size-5" />
                 Jurnal keuangan hidup
               </div>
@@ -28,10 +28,10 @@ export function SignatureHero() {
                 Catat pengeluaran seperti biasa. EcoSpend merangkainya menjadi pola keuangan dan estimasi dampak yang mudah dipahami—tanpa menghakimi pilihan Anda.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Link href="/register" className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#082419] px-6 py-3 font-bold text-white shadow-[0_18px_36px_-16px_rgb(14_59_44/0.85)] transition hover:-translate-y-0.5 hover:bg-[#082419] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1e6f4e] focus-visible:ring-offset-2 motion-reduce:transform-none">
+                <Link href="/register" className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#082419] px-6 py-3 font-bold text-white shadow-[0_18px_36px_-16px_rgb(14_59_44/0.85)] transition hover:-translate-y-0.5 hover:bg-[#0e3b2c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1e6f4e] focus-visible:ring-offset-2 motion-reduce:transform-none dark:bg-[#1e6f4e] dark:hover:bg-[#2fa36b] dark:text-white">
                   Mulai jurnalmu <ArrowRight className="size-4 transition-transform group-hover:translate-x-1 motion-reduce:transition-none" aria-hidden="true" />
                 </Link>
-                <Link href="/dashboard?demo=1" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-[#0e3b2c]/20 bg-white px-6 py-3 font-bold text-[#082419] backdrop-blur transition hover:-translate-y-0.5 hover:border-[#1e6f4e]/40 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1e6f4e] motion-reduce:transform-none dark:bg-[#0c1a13]/80 dark:text-[#eef5ef]">
+                <Link href="/dashboard?demo=1" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-[#0e3b2c]/20 bg-white px-6 py-3 font-bold text-[#082419] shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:border-[#1e6f4e]/40 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1e6f4e] motion-reduce:transform-none dark:border-white/20 dark:bg-[#0c1a13] dark:text-[#eef5ef] dark:hover:bg-[#14261d]">
                   <Sparkles className="size-4" aria-hidden="true" /> Coba demo
                 </Link>
               </div>

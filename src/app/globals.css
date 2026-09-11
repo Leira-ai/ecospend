@@ -4,6 +4,15 @@
  * EcoSpend "Jurnal Keuangan Hidup" — design tokens.
  * Warm Indonesian paper + forest greens. Dark mode mirrors the same hues.
  */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: #f6f4ec;
   --foreground: #14201b;
@@ -22,21 +31,37 @@
   --radius-card: 1.35rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+.dark {
+  --background: #08130e;
+  --foreground: #e9f2ec;
+  --paper: #0c1a13;
+  --paper-deep: #0f2318;
+  --ink: #eaf3ed;
+  --ink-soft: #b8c7bd;
+  --forest: #eef5ef;
+  --forest-deep: #082419;
+  --moss: #8bd3a7;
+  --moss-bright: #57c87a;
+  --rain: #7ebfd8;
+  --turmeric: #f0be54;
+  --paper-line: rgb(234 243 237 / 0.12);
+  --card-shadow: 0 24px 48px -30px rgb(0 0 0 / 0.7);
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not(.light) {
     --background: #08130e;
     --foreground: #e9f2ec;
     --paper: #0c1a13;
     --paper-deep: #0f2318;
     --ink: #eaf3ed;
     --ink-soft: #b8c7bd;
+    --forest: #eef5ef;
+    --forest-deep: #082419;
+    --moss: #8bd3a7;
+    --moss-bright: #57c87a;
+    --rain: #7ebfd8;
+    --turmeric: #f0be54;
     --paper-line: rgb(234 243 237 / 0.12);
     --card-shadow: 0 24px 48px -30px rgb(0 0 0 / 0.7);
   }
