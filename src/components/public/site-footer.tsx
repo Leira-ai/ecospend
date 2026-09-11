@@ -41,7 +41,8 @@ export function SiteFooter() {
           <p className="mt-5 text-sm leading-6 text-emerald-950/65">
             Catat keuangan dengan lebih jernih, lalu pahami perkiraan dampak karbon di balik kebiasaan belanja Anda.
           </p>
-          <p className="mt-4 rounded-xl border border-amber-900/15 bg-amber-50 px-4 py-3 text-xs leading-5 text-amber-950/80">
+          <p className="text-xs text-emerald-950/65">Butuh bantuan? <a className="font-semibold underline underline-offset-4 hover:text-emerald-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-700" href="mailto:support@ecospend.local">support@ecospend.local</a></p>
+          <p className="mt-3 rounded-xl border border-amber-900/15 bg-amber-50 px-4 py-3 text-xs leading-5 text-amber-950/80">
             Angka karbon adalah estimasi indikatif, bukan pengukuran langsung, audit, sertifikasi, atau nasihat finansial.
           </p>
         </div>
@@ -52,7 +53,7 @@ export function SiteFooter() {
               <ul className="mt-4 space-y-3 text-sm text-emerald-950/65">
                 {group.links.map((link) => (
                   <li key={link.href}>
-                    <Link className="inline-flex items-center gap-1 hover:text-emerald-800" href={link.href}>
+                    <Link className="inline-flex items-center gap-1 rounded-md underline-offset-4 hover:text-emerald-800 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-700" href={link.href}>
                       {link.label}
                       {link.href.startsWith("/#") && <ArrowUpRight className="size-3" aria-hidden="true" />}
                     </Link>

@@ -1,7 +1,7 @@
 "use client";
 
 import { X } from "lucide-react";
-import { useEffect, useId } from "react";
+import { useEffect, useId, useRef } from "react";
 
 export const buttonPrimary = "inline-flex min-h-10 items-center justify-center gap-2 rounded-xl bg-emerald-700 px-4 text-sm font-semibold text-white shadow-[0_8px_20px_-8px_rgb(4_120_87/0.7)] transition hover:-translate-y-px hover:bg-emerald-800 hover:shadow-[0_14px_26px_-10px_rgb(4_120_87/0.7)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transform-none motion-reduce:transition-none";
 export const buttonSecondary = "inline-flex min-h-10 items-center justify-center gap-2 rounded-xl border border-slate-200/90 bg-white/80 px-4 text-sm font-semibold text-slate-700 shadow-sm backdrop-blur transition hover:-translate-y-px hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700/80 dark:bg-slate-900/80 dark:text-slate-200 dark:hover:bg-emerald-950 motion-reduce:transform-none motion-reduce:transition-none";
@@ -83,24 +83,39 @@ export function EmptyState({ title, description, action }: { title: string; desc
 
 export function Modal({ open, title, description, onClose, children, size = "md" }: { open: boolean; title: string; description?: string; onClose: () => void; children: React.ReactNode; size?: "md" | "lg" | "xl" }) {
   const titleId = useId();
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<Element | null>(null);
   useEffect(() => {
     if (!open) return;
-    const handler = (event: KeyboardEvent) => event.key === "Escape" && onClose();
+    triggerRef.current = document.activeElement;
+    const dialog = dialogRef.current;
+    dialog?.querySelector<HTMLElement>("h2, input, select, button")?.focus();
+    const focusables = () => Array.from(dialog?.querySelectorAll<HTMLElement>("a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex='-1'])") ?? []).filter((el) => el.offsetParent !== null);
+    const handler = (event: KeyboardEvent) => {
+      if (event.key === "Escape") { onClose(); return; }
+      if (event.key !== "Tab" || !dialog) return;
+      const items = focusables();
+      if (!items.length) return;
+      const first = items[0]; const last = items[items.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    };
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", handler);
     return () => {
       document.body.style.overflow = "";
       window.removeEventListener("keydown", handler);
+      (triggerRef.current as HTMLElement | null)?.focus?.();
     };
   }, [onClose, open]);
   if (!open) return null;
   const widths = { md: "max-w-lg", lg: "max-w-2xl", xl: "max-w-4xl" };
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-slate-950/55 p-0 backdrop-blur-sm sm:items-center sm:p-4" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
-      <div role="dialog" aria-modal="true" aria-labelledby={titleId} className={`max-h-[92vh] w-full overflow-y-auto rounded-t-3xl bg-white p-5 shadow-2xl sm:rounded-2xl sm:p-6 dark:bg-slate-900 ${widths[size]}`}>
+      <div ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby={titleId} className={`max-h-[92vh] w-full overflow-y-auto rounded-t-3xl bg-white p-5 shadow-2xl sm:rounded-2xl sm:p-6 dark:bg-slate-900 ${widths[size]}`}>
         <div className="mb-5 flex items-start justify-between gap-4">
-          <div><h2 id={titleId} className="text-xl font-bold text-slate-950 dark:text-white">{title}</h2>{description && <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">{description}</p>}</div>
-          <button type="button" onClick={onClose} aria-label="Tutup dialog" className="grid min-h-10 min-w-10 place-items-center rounded-xl text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800"><X className="size-5" /></button>
+          <div><h2 id={titleId} tabIndex={-1} className="text-xl font-bold text-slate-950 outline-none dark:text-white">{title}</h2>{description && <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">{description}</p>}</div>
+          <button type="button" onClick={onClose} aria-label="Tutup dialog" className="grid size-11 shrink-0 place-items-center rounded-xl text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800"><X className="size-5" /></button>
         </div>
         {children}
       </div>

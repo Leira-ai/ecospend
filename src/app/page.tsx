@@ -78,9 +78,9 @@ export default function Home() {
               </div>
               <div className="mt-8 grid max-w-lg grid-cols-3 gap-3">
                 {[
-                  { value: "150+", label: "Transaksi demo" },
-                  { value: "132", label: "Tes database" },
-                  { value: "97", label: "Tes aplikasi" },
+                  { value: "150+", label: "Contoh transaksi demo" },
+                  { value: "8", label: "Halaman dasbor" },
+                  { value: "2", label: "Mode: demo & akun" },
                 ].map((stat) => (
                   <div key={stat.label} className="rounded-2xl border border-emerald-950/10 bg-white/70 px-4 py-3 backdrop-blur">
                     <p className="text-xl font-extrabold tracking-tight text-emerald-950">{stat.value}</p>

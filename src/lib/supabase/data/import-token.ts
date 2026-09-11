@@ -7,9 +7,7 @@ interface PreviewClaim { userId: string; digest: string; expiresAt: number; nonc
 function tokenSecret(): string {
   const configured = process.env.IMPORT_TOKEN_SECRET;
   if (configured && configured.length >= 32) return configured;
-  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!anonKey) throw new ApiError(503, "import_unavailable", "Import preview tokens are unavailable");
-  return createHash("sha256").update(`ecospend-import:${anonKey}`).digest("hex");
+  throw new ApiError(503, "import_unavailable", "Import preview tokens are unavailable");
 }
 
 export function canonicalDigest(rows: readonly unknown[]): string {

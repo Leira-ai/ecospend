@@ -1,4 +1,4 @@
-import { screen, waitFor, within } from "@testing-library/react";
+import { fireEvent, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 import { BudgetManager } from "../budget-manager";
@@ -20,8 +20,7 @@ describe("budget and goal UI", () => {
 
     const dialog = screen.getByRole("dialog", { name: "Tambah anggaran" });
     expect(within(dialog).getByLabelText("Kategori")).toHaveValue("Kesehatan");
-    await user.clear(within(dialog).getByLabelText("Batas bulanan"));
-    await user.type(within(dialog).getByLabelText("Batas bulanan"), "750000");
+    fireEvent.change(within(dialog).getByLabelText("Batas bulanan"), { target: { value: "750000" } });
     await user.click(within(dialog).getByRole("button", { name: "Simpan" }));
 
     expect(await screen.findByRole("heading", { name: "Kesehatan" })).toBeInTheDocument();
@@ -46,8 +45,7 @@ describe("budget and goal UI", () => {
 
     await user.click(within(goalCard!).getByRole("button", { name: "Tambah kontribusi" }));
     const dialog = screen.getByRole("dialog", { name: "Kontribusi ke Dana darurat hijau" });
-    await user.clear(within(dialog).getByLabelText("Nominal kontribusi"));
-    await user.type(within(dialog).getByLabelText("Nominal kontribusi"), "250000");
+    fireEvent.change(within(dialog).getByLabelText("Nominal kontribusi"), { target: { value: "250000" } });
     await user.click(within(dialog).getByRole("button", { name: "Tambah kontribusi" }));
 
     expect(screen.getByRole("progressbar", { name: "Kemajuan Dana darurat hijau" })).toHaveAttribute("aria-valuenow", "67");

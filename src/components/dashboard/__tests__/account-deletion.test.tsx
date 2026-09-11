@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { clearEcoSpendWorkerCaches } from "@/components/public/pwa-register";
@@ -28,10 +28,9 @@ describe("AccountDeletion", () => {
     expect(screen.getByText(/Estimasi karbon, notifikasi/)).toBeInTheDocument();
     const confirm = screen.getAllByRole("button", { name: "Hapus akun permanen" }).at(-1);
     expect(confirm).toBeDisabled();
-    await user.type(screen.getByLabelText("Ketik DELETE untuk mengonfirmasi"), "delete");
+    fireEvent.change(screen.getByLabelText("Ketik DELETE untuk mengonfirmasi"), { target: { value: "delete" } });
     expect(confirm).toBeDisabled();
-    await user.clear(screen.getByLabelText("Ketik DELETE untuk mengonfirmasi"));
-    await user.type(screen.getByLabelText("Ketik DELETE untuk mengonfirmasi"), "DELETE");
+    fireEvent.change(screen.getByLabelText("Ketik DELETE untuk mengonfirmasi"), { target: { value: "DELETE" } });
     expect(confirm).toBeEnabled();
   });
 
@@ -42,7 +41,7 @@ describe("AccountDeletion", () => {
     window.sessionStorage.setItem("ecospend-session", "private");
     render(<AccountDeletion />);
     await user.click(screen.getByRole("button", { name: "Hapus akun permanen" }));
-    await user.type(screen.getByLabelText("Ketik DELETE untuk mengonfirmasi"), "DELETE");
+    fireEvent.change(screen.getByLabelText("Ketik DELETE untuk mengonfirmasi"), { target: { value: "DELETE" } });
     await user.click(screen.getAllByRole("button", { name: "Hapus akun permanen" }).at(-1)!);
 
     await waitFor(() => expect(signOut).toHaveBeenCalledWith({ scope: "local" }));

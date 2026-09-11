@@ -14,7 +14,7 @@ export function ThemeControl({ compact = false }: { compact?: boolean }) {
     setTheme(theme);
   };
   const Icon = preferences.theme === "system" ? Monitor : preferences.theme === "light" ? Sun : Moon;
-  const label = `Tema ${preferences.theme === "system" ? "sistem" : preferences.theme === "light" ? "terang" : "gelap"}`;
+  const label = `Tema dasbor: ${preferences.theme === "system" ? "sistem" : preferences.theme === "light" ? "terang" : "gelap"}`;
 
   return (
     <button type="button" onClick={cycle} aria-label={`${label}. Klik untuk mengganti tema`}
